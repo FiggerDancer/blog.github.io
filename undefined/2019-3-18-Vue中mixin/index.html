@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="Finger Dancer">
+  
+  
+  <title>2019-3-18-Vue中mixin | Finger Dancer</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,Vue,JS,">
+  
+
+  
+  <meta name="description" content="mixin是为了让可复用的功能灵活的混入到当前组件中，混合的对象可以包含任意组件选项（生命周期，指令之类等等）, mixin翻译过来叫混合,高级的词汇可以叫插件入侵">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"fytWPWwaraiV8gXYv4GACKRi-gzGzoHsz","appkey":"jGWkDiRKAKSgQkY51HH8WvBh","comment":true,"count":true},
+    welcome: {"enable":true,"interval":30},
+    start_time: "2019-03-14",
+    passwords: ["38c4136589f4b3400f30fa4fd9b9b9dab1efb5ab2852a27551f4b97845462337", ],
+    is_post: true,
+    lock: false,
+    author: "Finger Dancer",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/blog.github.io/"
+  };
+</script>
+
+  <script src="/blog.github.io/vendor/sha256.min.js"></script>
+<script src="/blog.github.io/js/auth.js"></script>
+<script src="/blog.github.io/js/index.js"></script>
+<script src="/blog.github.io/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/blog.github.io/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/blog.github.io/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/blog.github.io/css/index.css">
+<link rel="stylesheet" href="/blog.github.io/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/blog.github.io/">Dancer</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 舞动指尖的不止是钢琴师。。。</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/blog.github.io/" target="_self">首页</a>
+      
+        <a href="/blog.github.io/archives/" target="_self">归档</a>
+      
+        <a href="/blog.github.io/tags/" target="_self">标签</a>
+      
+        <a href="/blog.github.io/categories/" target="_self">分类</a>
+      
+        <a href="/blog.github.io/friends/" target="_self">友链</a>
+      
+        <a href="/blog.github.io/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/FiggerDancer" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/blog.github.io/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/blog.github.io/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/blog.github.io/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/blog.github.io/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/blog.github.io/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/blog.github.io/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-03-18
+    </span>
+    
+      <span>
+        | <a href="/blog.github.io/categories/前端/"><i class="fa fa-bookmark"></i>前端</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    2019-3-18-Vue中mixin
+  </h1>
+  
+  <article class="passage-article">
+    <p></p>
+<h1 id="1-简单使用"><a href="#1-简单使用" class="headerlink" title="1. 简单使用"></a>1. 简单使用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 定义一个混合对象</span><br><span class="line">const myMixin = &#123;</span><br><span class="line">    created: function () &#123;</span><br><span class="line">        this.hello()</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        hello: function () &#123;</span><br><span class="line">            console.log(&apos;JS 每日一题&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 定义一个使用混合对象的组件</span><br><span class="line">const Component = Vue.extend(&#123;</span><br><span class="line">    mixins: [myMixin]</span><br><span class="line">&#125;)</span><br><span class="line">var component = new Component() // JS 每日一题</span><br></pre></td></tr></table></figure>
+<h1 id="2-选项合并-优先级"><a href="#2-选项合并-优先级" class="headerlink" title="2. 选项合并(优先级)"></a>2. 选项合并(优先级)</h1><p>当组件和混合对象含有同名选项时,选项会按照规则进行合并</p>
+<p>代码理解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const mixin = &#123;</span><br><span class="line">    created: function () &#123;</span><br><span class="line">        console.log(&apos;混合对象的钩子被调用&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    mixins: [mixin],</span><br><span class="line">    created: function() &#123;</span><br><span class="line">        console.log(&apos;组件钩子被调用&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">// =&gt; &quot;混合对象的钩子被调用&quot;</span><br><span class="line">// =&gt; &quot;组件钩子被调用&quot;</span><br><span class="line">// 从上面的代码我们可以看出来混合对象的生命周期会被先调用</span><br></pre></td></tr></table></figure></p>
+<p>值为对象的选项，例如 methods, components 和 directives，将被混合为同一个对象。两个对象键名冲突时，取组件对象的键值对,Vue.extend() 也使用同样的策略进行合并。</p>
+<p>代码理解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const mixin = &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        foo: function () &#123;</span><br><span class="line">            console.log(&apos;foo&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        conflicting: function () &#123;</span><br><span class="line">            console.log(&apos;from mixin&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">const vm = new Vue(&#123;</span><br><span class="line">    mixins: [mixin],</span><br><span class="line">    methods: &#123;</span><br><span class="line">        bar: function () &#123;</span><br><span class="line">            console.log(&apos;bar&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        conflicting: function () &#123;</span><br><span class="line">            console.log(&apos;from self&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">vm.foo() // =&gt; &quot;foo&quot;</span><br><span class="line">vm.bar() // =&gt; &quot;bar&quot;</span><br><span class="line">vm.conflicting() // =&gt; &quot;from self&quot;</span><br></pre></td></tr></table></figure></p>
+<h1 id="3-全局混合"><a href="#3-全局混合" class="headerlink" title="3. 全局混合"></a>3. 全局混合</h1><p>也可以全局注册混合对象。注意使用！ 一旦使用全局混合对象，将会影响到 所有 之后创建的 Vue 实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 为自定义的选项 &apos;myOption&apos; 注入一个处理器</span><br><span class="line">Vue.mixin(&#123;</span><br><span class="line">    created: function () &#123;</span><br><span class="line">        var myOption = this.$options.myOption</span><br><span class="line">        if (myOption) &#123;</span><br><span class="line">            console.log(myOption)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    myOption: &apos;hello!&apos;</span><br><span class="line">&#125;)</span><br><span class="line">// =&gt; &quot;hello!&quot;</span><br></pre></td></tr></table></figure>
+<p>再了解了基本用法后再简单过一遍源码加深印象<br>源码地址 <a href="https://github.com/vuejs/vue/blob/52719ccab8fccffbdf497b96d3731dc86f04c1ce/src/core/util/options.js#L365" target="_blank" rel="noopener">https://github.com/vuejs/vue/blob/52719ccab8fccffbdf497b96d3731dc86f04c1ce/src/core/util/options.js#L365</a></p>
+<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h1><p>mixin就是采取一定规则将一个功能(组件)的属性混合到另一个组件或者全局当中，优点就是灵活度高，耦合度低，便于维护</p>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-简单使用"><span class="toc-text">1. 简单使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-选项合并-优先级"><span class="toc-text">2. 选项合并(优先级)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-全局混合"><span class="toc-text">3. 全局混合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-总结"><span class="toc-text">4. 总结</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: Finger Dancer</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://figgerdancer.github.io/blog.github.io/undefined/2019-3-18-Vue中mixin/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/blog.github.io/tags/Vue/"><i class="fa fa-tags"></i>Vue</a>
+     
+      <a href="/blog.github.io/tags/JS/"><i class="fa fa-tags"></i>JS</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">博客推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">系列教程</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: ysulixiangyuan@gmail.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/blog.github.io/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/blog.github.io/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/blog.github.io/undefined/2019-3-18-ES10/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>
