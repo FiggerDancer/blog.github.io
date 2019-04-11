@@ -1,0 +1,2804 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="Finger Dancer">
+  
+  
+  <title>Swiper 中文手册 | Finger Dancer</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,js,">
+  
+
+  
+  <meta name="description" content="个人的一个 Swiper 全属性集">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"fytWPWwaraiV8gXYv4GACKRi-gzGzoHsz","appkey":"jGWkDiRKAKSgQkY51HH8WvBh","comment":true,"count":true},
+    welcome: {"enable":true,"interval":30},
+    start_time: "2019-03-14",
+    passwords: ["38c4136589f4b3400f30fa4fd9b9b9dab1efb5ab2852a27551f4b97845462337", ],
+    is_post: true,
+    lock: false,
+    author: "Finger Dancer",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">Dancer</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 舞动指尖的不止是钢琴师。。。</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/FiggerDancer" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-04-01
+    </span>
+    
+      <span>
+        | <a href="/categories/前端/"><i class="fa fa-bookmark"></i>前端</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Swiper 中文手册
+  </h1>
+  
+  <article class="passage-article">
+    
+
+<h1 id="Swiper-运作原理"><a href="#Swiper-运作原理" class="headerlink" title="Swiper 运作原理"></a>Swiper 运作原理</h1><p>Swiper运作原理<br>Swiper常用运作方式有两种：手动触摸切换或者导航切换（前进后退按钮，键盘控制，分页器，内置方法slideTo等）</p>
+<ol>
+<li>手动触摸切换拖动阶段Swiper根据手势位置实时设定wrapper的位移（setTranslate），释放拖动时Swiper会设定一次wrapper自由过渡（setTranslate、setTransition、transitionStart、slideChangeTransitionStart）。速度为speed直到过渡结束（transitionEnd、slideChangeTransitionEnd）。</li>
+<li>导航切换可参考手动触摸释放阶段</li>
+</ol>
+<h1 id="Layout-布局"><a href="#Layout-布局" class="headerlink" title="Layout 布局"></a>Layout 布局</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Slider main container --&gt;</span><br><span class="line">&lt;div class=&quot;swiper-container&quot;&gt;</span><br><span class="line">    &lt;!-- Additional required wrapper --&gt;</span><br><span class="line">    &lt;div class=&quot;swiper-wrapper&quot;&gt;</span><br><span class="line">        &lt;!-- Slides --&gt;</span><br><span class="line">        &lt;div class=&quot;swiper-slide&quot;&gt;Slide 1&lt;/div&gt;</span><br><span class="line">        &lt;div class=&quot;swiper-slide&quot;&gt;Slide 2&lt;/div&gt;</span><br><span class="line">        &lt;div class=&quot;swiper-slide&quot;&gt;Slide 3&lt;/div&gt;</span><br><span class="line">        ...</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;!-- If we need pagination --&gt;</span><br><span class="line">    &lt;div class=&quot;swiper-pagination&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- If we need navigation buttons --&gt;</span><br><span class="line">    &lt;div class=&quot;swiper-button-prev&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;swiper-button-next&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- If we need scrollbar --&gt;</span><br><span class="line">    &lt;div class=&quot;swiper-scrollbar&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="初始化-Swiper"><a href="#初始化-Swiper" class="headerlink" title="初始化 Swiper"></a>初始化 Swiper</h1><p>new Swiper(swiperContainer, parameters)</p>
+<ul>
+<li>swiperContainer: {HTMLElement|String} HTMLElement 或者 字符串（CSS选择器）</li>
+<li>parameters: {Object} swiper的配置参数</li>
+</ul>
+<h1 id="Swiper-参数-parameters"><a href="#Swiper-参数-parameters" class="headerlink" title="Swiper 参数 (parameters)"></a>Swiper 参数 (parameters)</h1><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>init</td>
+<td>boolean</td>
+<td>true</td>
+<td>Swiper 是否自动初始化。如果填false，则你需要手动调用 <em>mySwiper.init()</em></td>
+<td></td>
+</tr>
+<tr>
+<td>initialSlide</td>
+<td>number</td>
+<td>0</td>
+<td>设定初始化时slide的索引</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>string</td>
+<td>‘horizontal’</td>
+<td>Slides的滑动方向，可选值为’horizontal’（水平），’vertical’（垂直）</td>
+</tr>
+<tr>
+<td>speed</td>
+<td>number</td>
+<td>300</td>
+<td>切换速度，即slider自动滑动开始到结束的时间（单位ms），也是触摸滑动时释放至贴合的时间</td>
+</tr>
+<tr>
+<td>setWrapperSize</td>
+<td>boolean</td>
+<td>false</td>
+<td>开启这个设定会在Wrapper上添加等于slides相加的宽或高，在对flexbox布局的支持不是很好的浏览器中可能需要用到</td>
+</tr>
+<tr>
+<td>virtualTranslate</td>
+<td>boolean</td>
+<td>false</td>
+<td>虚拟位移。当你启用这个参数，Swiper除了不会移动外其他的都像平时一样运行，<br>仅仅是不会在Wrapper上设置位移。<br>当你想自定义一些slide切换效果时可以用</td>
+</tr>
+<tr>
+<td>width</td>
+<td>number</td>
+<td></td>
+<td>强制Swiper的宽度(px)，当你的Swiper在隐藏状态下初始化时有效。这个参数会使自适应失效</td>
+<td></td>
+</tr>
+<tr>
+<td>height</td>
+<td>number</td>
+<td></td>
+<td>强制Swiper的高度(px)，当你的Swiper在隐藏状态下初始化时有效。这个参数会使自适应失效</td>
+<td></td>
+</tr>
+<tr>
+<td>autoHeight</td>
+<td>boolean</td>
+<td>false</td>
+<td>自动高度。设置为true时，wrapper和container会随着当前slide的高度而发生变化</td>
+<td></td>
+</tr>
+<tr>
+<td>roundLengths</td>
+<td>boolean</td>
+<td>false</td>
+<td>如果设置为true，则将slide的宽和高取整(四舍五入)，<br>以防止某些分辨率的屏幕上文字或边界(border)模糊</td>
+<td></td>
+</tr>
+<tr>
+<td>nested</td>
+<td>boolean</td>
+<td>false</td>
+<td>嵌套相同方向的swiper时，当切换到子swiper时停止父swiper的切换</td>
+<td></td>
+</tr>
+<tr>
+<td>uniqueNavElements</td>
+<td>booean</td>
+<td>true</td>
+<td>独立分页元素，当启用（默认）并且分页元素的传入值为字符串时，swiper会优先查找子元素匹配这些元素。<br>可应用于分页器，按钮和滚动条（pagination, prev/next buttons and scrollbar elements）</td>
+<td></td>
+</tr>
+<tr>
+<td>effect</td>
+<td>string</td>
+<td>‘slide’</td>
+<td>独立分页元素，当启用（默认）并且分页元素的传入值为字符串时，swiper会优先查找子元素匹配这些元素。<br>可应用于分页器，按钮和滚动条（pagination, prev/next buttons and scrollbar elements）</td>
+<td></td>
+</tr>
+<tr>
+<td>runCallbacksOnInit</td>
+<td>boolean</td>
+<td>true</td>
+<td>如果你的初始化slide不是第一个(例initialSlide:2)或者设置了loop: true，<br>那么初始化时会触发一次 [Transition/SlideChange] [Start/End] 回调函数，如果不想触发，设置为false</td>
+<td></td>
+</tr>
+<tr>
+<td>watchOverflow</td>
+<td>boolean</td>
+<td>false</td>
+<td>当没有足够的slide切换时，例如只有1个slide（非loop），swiper会失效且隐藏导航等。默认不开启这个功能</td>
+<td></td>
+</tr>
+<tr>
+<td>on</td>
+<td>object</td>
+<td></td>
+<td>注册事件</td>
+</tr>
+<tr>
+<td>spaceBetween</td>
+<td>number</td>
+<td>0</td>
+<td>滑块间距离</td>
+<td></td>
+</tr>
+<tr>
+<td>slidesPerView</td>
+<td>number/‘auto’</td>
+<td>1</td>
+<td>每行显示滑块数，auto自动填充</td>
+<td></td>
+</tr>
+<tr>
+<td>slidesPerColumn</td>
+<td>number</td>
+<td>1</td>
+<td>每列显示滑块数</td>
+<td></td>
+</tr>
+<tr>
+<td>slidesPerColumnFill</td>
+<td>string</td>
+<td>‘column’</td>
+<td>填充次序按照行开始还是列开始</td>
+<td></td>
+</tr>
+<tr>
+<td>slidesPerGroup</td>
+<td>number</td>
+<td>1</td>
+<td>每组多少个滑块</td>
+<td></td>
+</tr>
+<tr>
+<td>centeredSlides</td>
+<td>boolean</td>
+<td>false</td>
+<td>设定为true时，active slide会居中，而不是默认状态下的居左</td>
+<td></td>
+</tr>
+<tr>
+<td>slidesOffsetBefore</td>
+<td>number</td>
+<td>0</td>
+<td>设定slide与左边框的预设偏移量</td>
+<td></td>
+</tr>
+<tr>
+<td>slidesOffsetAfter</td>
+<td>number</td>
+<td>0</td>
+<td>设定slide与右边框的预设偏移量</td>
+<td></td>
+</tr>
+<tr>
+<td>normalizeSlideIndex</td>
+<td>boolean</td>
+<td>true</td>
+<td>使你的活动块指示为最左边的那个slide</td>
+<td></td>
+</tr>
+<tr>
+<td>centerInsufficientSlides</td>
+<td>boolean</td>
+<td>false</td>
+<td>开启这个参数，当slides的总数小于slidesPerView时，slides居中</td>
+<td></td>
+</tr>
+<tr>
+<td>grabCursor</td>
+<td>boolean</td>
+<td>false</td>
+<td>设置为true时，鼠标覆盖Swiper时指针会变成手掌形状，拖动时指针会变成抓手形状</td>
+<td></td>
+</tr>
+<tr>
+<td>touchEventsTarget</td>
+<td>string</td>
+<td>‘container’</td>
+<td>接受touch事件的目标，可以设为container或者wrapper</td>
+<td></td>
+</tr>
+<tr>
+<td>touchRatio</td>
+<td>number</td>
+<td>1</td>
+<td>触摸比例。触摸距离与slide滑动距离的比率,利用复数可以反向滑动</td>
+<td></td>
+</tr>
+<tr>
+<td>touchAngle</td>
+<td>number</td>
+<td>45</td>
+<td>允许触发拖动的角度值。默认45度，即使触摸方向不是完全水平也能拖动slide</td>
+<td></td>
+</tr>
+<tr>
+<td>simulateTouch</td>
+<td>boolean</td>
+<td>true</td>
+<td>鼠标模拟手机触摸</td>
+<td></td>
+</tr>
+<tr>
+<td>shortSwipes</td>
+<td>boolean</td>
+<td>true</td>
+<td>默认允许短切换。设置为false时，只能长切换，进行快速且短距离的滑动无法触发切换</td>
+<td></td>
+</tr>
+<tr>
+<td>longSwipes</td>
+<td>boolean</td>
+<td>true</td>
+<td>设置为false时，进行长时间长距离的拖动无法触发Swiper</td>
+<td></td>
+</tr>
+<tr>
+<td>longSwipesRatio</td>
+<td>number</td>
+<td>0.5</td>
+<td>进行longSwipes时触发swiper所需要的最小拖动距离比例，即定义longSwipes距离比例。<br>值越大触发Swiper所需距离越大。最大值0.5</td>
+<td></td>
+</tr>
+<tr>
+<td>longSwipesMs</td>
+<td>number</td>
+<td>300</td>
+<td>定义longSwipes的时间（单位ms），超过则属于longSwipes</td>
+</tr>
+<tr>
+<td>followFinger</td>
+<td>boolean</td>
+<td>true</td>
+<td>跟随手指。如设置为false，手指滑动时slide不会动，当你释放时slide才会切换</td>
+<td></td>
+</tr>
+<tr>
+<td>allowTouchMove</td>
+<td>boolean</td>
+<td>true</td>
+<td>允许触摸滑动。<br>设为false时，slide无法滑动，只能使用扩展API函数例如slideNext() 或slidePrev()或slideTo()等改变slides滑动</td>
+<td></td>
+</tr>
+<tr>
+<td>threshold</td>
+<td>number</td>
+<td>0</td>
+<td>拖动的临界值（单位为px），如果触摸距离小于该值滑块不会被拖动</td>
+<td></td>
+</tr>
+<tr>
+<td>touchStartPreventDefault</td>
+<td>boolean</td>
+<td>true</td>
+<td>阻止<code>touchstart</code> (<code>mousedown</code>)的默认事件，设置为false则不阻止</td>
+<td></td>
+</tr>
+<tr>
+<td>touchStartForcePreventDefault</td>
+<td>boolean</td>
+<td>true</td>
+<td>是否强制阻止<code>touchstart</code> (<code>mousedown</code>)的默认事件，即使Swiper不允许滑动(allowTouchMove:false)</td>
+<td></td>
+</tr>
+<tr>
+<td>touchMoveStopPropagation</td>
+<td>boolean</td>
+<td>true</td>
+<td>true时阻止touchmove冒泡事件</td>
+<td></td>
+</tr>
+<tr>
+<td>iOSEdgeSwipeDetection</td>
+<td>boolean</td>
+<td>false</td>
+<td>设置为true开启IOS的UIWebView环境下的边缘探测。如果拖动是从屏幕边缘开始则不触发swiper。<br>这样当你在屏幕边缘滑动Swiper时，则可以返回上一页（history.back）或切换至下一页</td>
+<td></td>
+</tr>
+<tr>
+<td>iOSEdgeSwipeThreshold</td>
+<td>number</td>
+<td>20</td>
+<td>IOS的UIWebView环境下的边缘探测距离。如果拖动小于边缘探测距离则不触发swiper</td>
+<td></td>
+</tr>
+<tr>
+<td>touchReleaseOnEdges</td>
+<td>boolean</td>
+<td>false</td>
+<td>当滑动到Swiper的边缘时释放滑动，可以用于同向Swiper的嵌套（移动端触摸有效）</td>
+<td></td>
+</tr>
+<tr>
+<td>passiveListeners</td>
+<td>boolean</td>
+<td>true</td>
+<td>用来提升swiper在移动设备的中的scroll表现（Passive Event Listeners），但是会和e.preventDefault冲突，所以有时候你需要关掉它</td>
+<td></td>
+</tr>
+<tr>
+<td>resistance</td>
+<td>boolean</td>
+<td>true</td>
+<td>边缘抵抗。当swiper已经处于第一个或最后一个slide时，继续拖动Swiper会离开边界，释放后弹回。<br>边缘抵抗就是拖离边界时的抵抗力。值为false时禁用，将slide拖离边缘时完全没有抗力</td>
+<td></td>
+</tr>
+<tr>
+<td>resistanceRatio</td>
+<td>number</td>
+<td>0.85</td>
+<td>抵抗率。边缘抵抗力的大小比例。值越小抵抗越大越难将slide拖离边缘，0时完全无法拖离</td>
+<td></td>
+</tr>
+<tr>
+<td>preventInteractionOnTransition</td>
+<td>boolean</td>
+<td>false</td>
+<td>如果开启这个选项，当你的Swiper在过渡时将无法滑动</td>
+<td></td>
+</tr>
+<tr>
+<td>allowSlidePrev</td>
+<td>boolean</td>
+<td>true</td>
+<td>设为false可禁止向左或上滑动</td>
+<td></td>
+</tr>
+<tr>
+<td>allowSlideNext</td>
+<td>boolean</td>
+<td>true</td>
+<td>设为false可禁止向右或下滑动</td>
+<td></td>
+</tr>
+<tr>
+<td>noSwiping</td>
+<td>boolean</td>
+<td>true</td>
+<td>设为true时，可以在slide上（或其他元素）增加类名’swiper-no-swiping’，使该slide无法拖动，<br>希望文字被选中时可以考虑使用.该类名可通过noSwipingClass修改</td>
+<td></td>
+</tr>
+<tr>
+<td>noSwipingClass</td>
+<td>string</td>
+<td>‘swiper-no-swiping’</td>
+<td>不可拖动块的类名，当noSwiping设置为true时，并且在slide（或其他元素）加上此类名，<br>目标将无法触摸拖动</td>
+<td></td>
+</tr>
+<tr>
+<td>noSwipingSelector</td>
+<td>string</td>
+<td></td>
+<td>设置不可触摸滑动的元素(如input)</td>
+<td></td>
+</tr>
+<tr>
+<td>swipeHandler</td>
+<td>string / HTMLElement</td>
+<td>null</td>
+<td>CSS选择器或者HTML元素。你只能拖动它进行swiping</td>
+<td></td>
+</tr>
+<tr>
+<td>preventClicks</td>
+<td>boolean</td>
+<td>true</td>
+<td>当swiper在触摸时阻止默认事件（preventDefault），用于防止触摸时触发链接跳转</td>
+<td></td>
+</tr>
+<tr>
+<td>preventClicksPropagation</td>
+<td>boolean</td>
+<td>true</td>
+<td>阻止click冒泡。拖动Swiper时阻止click事件</td>
+<td></td>
+</tr>
+<tr>
+<td>slideToClickedSlide</td>
+<td>boolean</td>
+<td>false</td>
+<td>设置为true则点击slide会过渡到这个slide</td>
+<td></td>
+</tr>
+<tr>
+<td>freeMode</td>
+<td>boolean</td>
+<td>false</td>
+<td>默认为false，普通模式：slide滑动时只滑动一格，并自动贴合wrapper，设置为true则变为free模式，<br>slide会根据惯性滑动可能不止一格且不会贴合</td>
+<td></td>
+</tr>
+<tr>
+<td>freeModeMomentum</td>
+<td>boolean</td>
+<td>true</td>
+<td>free模式动量。free模式下，若设置为false则关闭动量，释放slide之后立即停止不会滑动</td>
+<td></td>
+</tr>
+<tr>
+<td>freeModeMomentumRatio</td>
+<td>number</td>
+<td>1</td>
+<td>free模式动量值（移动惯量）。设置的值越大，当释放slide时的滑动时间越长。默认1s</td>
+<td></td>
+</tr>
+<tr>
+<td>freeModeMomentumVelocityRatio</td>
+<td>number</td>
+<td>1</td>
+<td>free模式惯性速度，设置越大，释放后滑得越快</td>
+<td></td>
+</tr>
+<tr>
+<td>freeModeMomentumBounce</td>
+<td>boolean</td>
+<td>true</td>
+<td>动量反弹。false时禁用free模式下的动量反弹，slides通过惯性滑动到边缘时，无法反弹。<br>注意与resistance（手动抵抗）区分</td>
+<td></td>
+</tr>
+<tr>
+<td>freeModeMomentumBounceRatio</td>
+<td>number</td>
+<td>1</td>
+<td>值越大产生的边界反弹效果越明显，反弹距离越大</td>
+<td></td>
+</tr>
+<tr>
+<td>freeModeMinimumVelocity</td>
+<td>number</td>
+<td>0.02</td>
+<td>触发FreeMode惯性的最小触摸速度（px/ms），低于这个值不会惯性滑动</td>
+<td></td>
+</tr>
+<tr>
+<td>freeModeSticky</td>
+<td>boolean</td>
+<td>false</td>
+<td>使得freeMode也能自动贴合</td>
+<td></td>
+</tr>
+<tr>
+<td>watchSlidesProgress</td>
+<td>boolean</td>
+<td>false</td>
+<td>开启这个参数来计算每个slide的progress(进度、进程)，对于slide的progress属性，活动的那个为0，其他的依次减1。<br>例：如果一共有6个slide，活动的是第三个，从第一个到第六个的progress属性分别是：2、1、0、-1、-2、-3，对于swiper的progress属性，活动的slide在最左（上）边时为0，活动的slide在最右（下）边时为1，其他情况平分。<br>例：有6个slide，当活动的是第三个时swiper的progress属性是0.4，当活动的是第五个时swiper的progress属性是0.8<br>swiper的progress其实就是wrapper的translate值的百分值，与activeIndex等属性不同，progress是随着swiper的切换而不停的变化，而不是在某个时间点突变</td>
+<td></td>
+</tr>
+<tr>
+<td>watchSlidesVisibility</td>
+<td>boolean</td>
+<td>false</td>
+<td>开启watchSlidesVisibility选项前需要先开启watchSlidesProgress，如果开启了watchSlidesVisibility，<br>则会在每个可见slide增加一个classname，默认为’swiper-slide-visible’</td>
+<td></td>
+</tr>
+<tr>
+<td>preloadImages</td>
+<td>boolean</td>
+<td>true</td>
+<td>默认为true，Swiper会强制加载所有图片</td>
+<td></td>
+</tr>
+<tr>
+<td>updateOnImagesReady</td>
+<td>boolean</td>
+<td>true</td>
+<td>当所有的内嵌图像（img标签）加载完成后Swiper会重新初始化。<br>使用此选项需要先开启preloadImages: true</td>
+<td></td>
+</tr>
+<tr>
+<td>loop</td>
+<td>boolean</td>
+<td>false</td>
+<td>loop模式：会在原本slide前后复制若干个slide(默认一个)并在合适的时候切换，让Swiper看起来是循环的。 <br>loop模式在与free模式同用时会产生抖动，因为free模式下没有复制slide的时间点</td>
+<td></td>
+</tr>
+<tr>
+<td>loopAdditionalSlides</td>
+<td>number</td>
+<td>0</td>
+<td>loop模式下会在slides前后复制若干个slide,，前后复制的个数不会大于原总个数<br>默认为0，前后各复制1个。0,1,2 –&gt; 2,0,1,2,0<br>例：取值为1，0,1,2 –&gt; 1,2,0,1,2,0,1<br>例：取值为2或以上，0,1,2 –&gt; 0,1,2,0,1,2,0,1,2</td>
+<td></td>
+</tr>
+<tr>
+<td>loopedSlides</td>
+<td>number</td>
+<td>1</td>
+<td>在loop模式下使用slidesPerview:’auto’，还需使用该参数设置所要用到的loop个数(一般设置大于可视slide个数2个即可)</td>
+<td></td>
+</tr>
+<tr>
+<td>loopFillGroupWithBlank</td>
+<td>boolean</td>
+<td>false</td>
+<td>在loop模式下，为group填充空白slide</td>
+<td></td>
+</tr>
+<tr>
+<td>breakpoints</td>
+<td>object</td>
+<td></td>
+<td>断点设定：根据屏幕宽度设置某参数为不同的值，类似于响应式布局的media only screen and (max-width: 480px)<br>只有部分不需要变换布局方式和逻辑结构的参数支持断点设定，<br>如slidesPerView、slidesPerGroup、 spaceBetween，而像slidesPerColumn、loop、direction、effect等则无效</td>
+<td></td>
+</tr>
+<tr>
+<td>breakpointsInverse</td>
+<td>boolean</td>
+<td>false</td>
+<td>开启后，breakpoints将以反方向计算，类似于media only screen and (min-width: 480px)</td>
+<td></td>
+</tr>
+<tr>
+<td>observer</td>
+<td>boolean</td>
+<td>false</td>
+<td>启动动态检查器(OB/观众/观看者)，当改变swiper的样式（例如隐藏/显示）或者修改swiper的子元素时，自动初始化swiper。<br>默认false，不开启，可以使用update()方法更新</td>
+<td></td>
+</tr>
+<tr>
+<td>observeParents</td>
+<td>boolean</td>
+<td>false</td>
+<td>将observe应用于Swiper的父元素。<br>当Swiper的父元素变化时，例如window.resize，Swiper更新</td>
+<td></td>
+</tr>
+<tr>
+<td>observeSlideChildren</td>
+<td>boolean</td>
+<td>false</td>
+<td>子slide更新时，swiper是否更新。默认为false不更新</td>
+<td></td>
+</tr>
+<tr>
+<td>containerModifierClass</td>
+<td>string</td>
+<td>‘swiper-container-‘</td>
+<td>可以修改某些以swiper-container-为开头的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>slideClass</td>
+<td>string</td>
+<td>‘swiper-slide’</td>
+<td>设置slide的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>slideActiveClass</td>
+<td>string</td>
+<td>‘swiper-slide-active’</td>
+<td>设置活动块的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>slideDuplicateActiveClass</td>
+<td>string</td>
+<td>swiper-slide-duplicate-active</td>
+<td>loop模式下活动块对应复制块的类名，或者相反</td>
+<td></td>
+</tr>
+<tr>
+<td>slideVisibleClass</td>
+<td>string</td>
+<td>swiper-slide-visible</td>
+<td>设置可视块的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>slideDuplicateClass</td>
+<td>string</td>
+<td>‘swiper-slide-duplicate’</td>
+<td>loop模式下被复制的slide的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>slideNextClass</td>
+<td>string</td>
+<td>‘swiper-slide-next’</td>
+<td>active slide的下一个slide的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>slideDuplicateNextClass</td>
+<td>string</td>
+<td>‘swiper-slide-duplicate-next’</td>
+<td>loop模式下，下一个slide对应复制块的类名，或者相反</td>
+<td></td>
+</tr>
+<tr>
+<td>slidePrevClass</td>
+<td>string</td>
+<td>‘swiper-slide-prev’</td>
+<td>active slide的前一个slide的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>slideDuplicatePrevClass</td>
+<td>string</td>
+<td>‘swiper-slide-duplicate-prev’</td>
+<td>loop下，前一个slide对应复制块的类名，或者相反</td>
+<td></td>
+</tr>
+<tr>
+<td>wrapperClass</td>
+<td>string</td>
+<td>‘swiper-wrapper’</td>
+<td>设置wrapper的css类名</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Slider-的方法和属性"><a href="#Slider-的方法和属性" class="headerlink" title="Slider 的方法和属性"></a>Slider 的方法和属性</h1><table>
+<thead>
+<tr>
+<th>属性或方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>params</td>
+<td>重要参数，获取Swiper对象初始化参数，或者重写该参数，<br>如： mySwiper.params.speed = 200。<br>*不是所有参数都可以重写</td>
+<td></td>
+</tr>
+<tr>
+<td>$el</td>
+<td>swiper的container的Dom7/jQuery对象。可以通过mySwiper.el得到container的HTML元素</td>
+<td></td>
+</tr>
+<tr>
+<td>$wrapperEl</td>
+<td>获取swiper的wrapper的Dom7对象。<br>可以通过mySwiper.wrapperEl得到wrapper的HTML元素。<br>如需拿到slides的总宽度，需要设置wrapper的setWrapperSize</td>
+<td></td>
+</tr>
+<tr>
+<td>slides</td>
+<td>获取Swiper的slides的Dom7/jQuery对象。<br>通过mySwiper.slides[1]获取特定的slide。<br>如需拿到slides的总宽度，需要设置wrapper的setWrapperSize</td>
+<td></td>
+</tr>
+<tr>
+<td>width</td>
+<td>获取swiper容器的宽度</td>
+<td></td>
+</tr>
+<tr>
+<td>height</td>
+<td>获取swiper容器的高度</td>
+<td></td>
+</tr>
+<tr>
+<td>translate</td>
+<td>这个属性可以获取到wrapper的位移，过渡中得到的则是过渡完成时的位移。<br>如需实时位移可以使用 swiper.getTranslate()</td>
+<td></td>
+</tr>
+<tr>
+<td>progress</td>
+<td>获取Swiper的progress值</td>
+<td></td>
+</tr>
+<tr>
+<td>activeIndex</td>
+<td>返回当前活动块(激活块)的索引。loop模式下注意该值会被加上复制的slide数</td>
+<td></td>
+</tr>
+<tr>
+<td>realIndex</td>
+<td>当前活动块的索引，与activeIndex不同的是，在loop模式下不会将复制的块的数量计算在内</td>
+<td></td>
+</tr>
+<tr>
+<td>previousIndex</td>
+<td>返回上一个活动块的索引，切换前的索引</td>
+<td></td>
+</tr>
+<tr>
+<td>isBegining</td>
+<td>如果Swiper位于最左/上，这个值为true</td>
+<td></td>
+</tr>
+<tr>
+<td>isEnd</td>
+<td>如果Swiper位于最右/下，这个值为true</td>
+<td></td>
+</tr>
+<tr>
+<td>animating</td>
+<td>如果Swiper正在过渡（自由滑动），这个值为true</td>
+<td></td>
+</tr>
+<tr>
+<td>touches</td>
+<td>返回包含触控信息的对象数组，就是这5个。<br>mySwiper.touches.startX    触摸开始点的X值<br>mySwiper.touches.startY    触摸开始点的Y值<br>mySwiper.touches.currentX    触摸当前点的X值<br>mySwiper.touches.currentY    触摸当前点的Y值<br>mySwiper.touches.diff    当前滑动方向的触摸滑动距离</td>
+</tr>
+<tr>
+<td>clickedIndex</td>
+<td>返回最后点击Slide的索引</td>
+<td></td>
+</tr>
+<tr>
+<td>clickedSlide</td>
+<td>返回最后点击（非拖动）的Slide的HTML元素</td>
+<td></td>
+</tr>
+<tr>
+<td>allowSlideNext</td>
+<td>提示或设置是否允许切换至下一个slide</td>
+<td></td>
+</tr>
+<tr>
+<td>allowSlidePrev</td>
+<td>设置/提示是否允许切换至前一个slide</td>
+<td></td>
+</tr>
+<tr>
+<td>allowTouchMove</td>
+<td>设置/查看是否禁止触摸滑动</td>
+<td></td>
+</tr>
+<tr>
+<td>slideNext(speed, runCallbacks)</td>
+<td>滑动到下一个滑块。<br>speed：可选，切换速度<br>runCallbacks：可选，设为false不触发transition回调函数</td>
+<td></td>
+</tr>
+<tr>
+<td>slidePrev(speed, runCallbacks)</td>
+<td>滑动到上一个滑块。<br>speed：可选，切换速度<br>runCallbacks：可选，设为false不触发transition回调函数</td>
+<td></td>
+</tr>
+<tr>
+<td>slideTo(index, speed, runCallbacks)</td>
+<td>滑动到指定索引滑块。<br>index:必选，num，指定将要切换到的slide的索引。<br>speed：可选，切换速度<br>runCallbacks：可选，设为false不触发transition回调函数</td>
+<td></td>
+</tr>
+<tr>
+<td>slideToLoop(index, speed, runCallbacks)</td>
+<td>在Loop模式下Swiper切换到指定slide。切换到的是slide索引是realIndex<br>index:必选，num，指定将要切换到的slide的索引。<br>speed:可选，num(单位ms)，切换速度<br>runCallbacks: 可选，boolean，设置为false时不会触发transition回调函数</td>
+</tr>
+<tr>
+<td>slideReset(speed, runCallbacks)</td>
+<td>将滑块位置重置为当前滑块</td>
+<td></td>
+</tr>
+<tr>
+<td>slideToClosest(speed, runCallbacks)</td>
+<td>使得Swiper贴合边缘，当你使用freeMode时可能会需要<br>speed:number 贴合速度ms(可选)<br>runCallbacks:boolean 贴合时是否产生transition事件，默认true</td>
+<td></td>
+</tr>
+<tr>
+<td>updateAutoHeight(speed)</td>
+<td>当autoHeight为启用状态，设置更新swiper高度的时间。<br>speed:number 速度ms(可选)</td>
+<td></td>
+</tr>
+<tr>
+<td>update()</td>
+<td>更新Swiper，这个方法包含了updateContainerSize，updateSlidesSize，updateProgress，updateClasses方法。<br>可选参数：updateTranslate，默认false，设置为true则重新计算Wrapper的位移</td>
+<td></td>
+</tr>
+<tr>
+<td>changeDirection(direction)</td>
+<td>动态改变切换方向。<br>可选择方向direction: horizontal或vertical，留空则自动改变</td>
+<td></td>
+</tr>
+<tr>
+<td>detachEvents()</td>
+<td>移除所有监听事件</td>
+<td></td>
+</tr>
+<tr>
+<td>attachEvents()</td>
+<td>重新绑定所有监听事件</td>
+<td></td>
+</tr>
+<tr>
+<td>destroy(deleteInstance, cleanStyles)</td>
+<td>销毁Swiper。销毁所有绑定的监听事件，移除鼠标键盘事件，释放浏览器内存。<br>deleteInstance:可选，设为false则不销毁Swiper对象，默认为true。<br>cleanupStyles:可选，设为true则清除所有swiper设定选项和样式，比如direction等，默认为false。</td>
+<td></td>
+</tr>
+<tr>
+<td>appendSlide(slides)</td>
+<td>添加slide到slides的结尾。可以是HTML元素或slide数组，例<br>mySwiper.appendSlide(‘&lt;div class=”swiper-slide”>Slide 10&lt;/div>‘)<br>mySwiper.appendSlide([ ‘&lt;div class=”swiper-slide”>Slide 10&lt;/div>‘, ‘&lt;div class=”swiper-slide”>Slide 11&lt;/div>‘ ])</td>
+<td></td>
+</tr>
+<tr>
+<td>prependSlide(slides)</td>
+<td>添加slide到slides的第一个位置。可以是HTML元素或slide数组</td>
+<td></td>
+</tr>
+<tr>
+<td>addSlide(index, slides)</td>
+<td>在指定位置增加slide。可以是HTML元素或slide数组</td>
+<td></td>
+</tr>
+<tr>
+<td>removeSlide(slideIndex)</td>
+<td>移除索引为index的slide</td>
+<td></td>
+</tr>
+<tr>
+<td>removeAllSlides()</td>
+<td>移除所有slides</td>
+<td></td>
+</tr>
+<tr>
+<td>setTranslate(translate)</td>
+<td>手动设置wrapper的位移。在其他非位移的切换时则表现为相应的效果，例如3D切换时改变的是角度。<br>translate：必选，位移值（单位px）。<br>例：swiper宽度为500，设置translate为-250。<br>在默认的effect: slide时，swiper会向左滑动250px，如果设置了切换效果effect: cube，swiper会旋转45度。</td>
+<td></td>
+</tr>
+<tr>
+<td>getTranslate()</td>
+<td>返回实时的wrapper位移（translate）</td>
+<td></td>
+</tr>
+<tr>
+<td>on(event, handler)</td>
+<td>添加回调函数或者事件句柄</td>
+<td></td>
+</tr>
+<tr>
+<td>once(event, handler)</td>
+<td>添加回调函数或者事件句柄，这些事件只会执行一次</td>
+<td></td>
+</tr>
+<tr>
+<td>off(event, handler)</td>
+<td>移除某个回调/事件</td>
+<td></td>
+</tr>
+<tr>
+<td>off(event)</td>
+<td>移除事件的所有句柄</td>
+<td></td>
+</tr>
+<tr>
+<td>unsetGrabCursor()</td>
+<td>关闭鼠标的抓手形状</td>
+<td></td>
+</tr>
+<tr>
+<td>setGrabCursor()</td>
+<td>开启鼠标的抓手形状，相当于开启grabCursor</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h1><p>Swiper的事件可以以两种方式监听</p>
+<p>1.用swiper初始化参数的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">  // ...</span><br><span class="line">  on: &#123;</span><br><span class="line">    init: function () &#123;</span><br><span class="line">      console.log(&apos;swiper initialized&apos;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>2.在swiper初始化后使用监听方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;;</span><br><span class="line">mySwiper.on(&apos;slideChange&apos;, function () &#123;</span><br><span class="line">  console.log(&apos;slide changed&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><em>注：this 关键字在 event 事件句柄中总是表示 swiper 实例</em></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>init</td>
+<td></td>
+<td>事件函数，初始化后执行</td>
+<td></td>
+</tr>
+<tr>
+<td>beforeDestory</td>
+<td></td>
+<td>回调函数，销毁Swiper时执行</td>
+<td></td>
+</tr>
+<tr>
+<td>slideChange</td>
+<td></td>
+<td>当当前Slide切换时执行(activeIndex发生改变)</td>
+<td></td>
+</tr>
+<tr>
+<td>slideChangeTransitionStart</td>
+<td></td>
+<td>回调函数，swiper从当前slide开始过渡到另一个slide时执行</td>
+<td></td>
+</tr>
+<tr>
+<td>slideChangeTransitionEnd</td>
+<td></td>
+<td>回调函数，swiper从一个slide过渡到另一个slide结束时执行</td>
+<td></td>
+</tr>
+<tr>
+<td>slideNextTransitionStart</td>
+<td></td>
+<td>回调函数，滑块释放时如果触发slider向前(右、下)切换则执行。<br>类似于slideChangeTransitionStart，但规定了方向</td>
+<td></td>
+</tr>
+<tr>
+<td>slideNextTransitionEnd</td>
+<td></td>
+<td>回调函数，slider向前(右、下)切换结束时执行。<br>类似于slideChangeTransitionEnd，但规定了方向</td>
+<td></td>
+</tr>
+<tr>
+<td>slidePrevTransitionStart</td>
+<td></td>
+<td>回调函数，滑块释放时如果触发slider向后(左、上)切换则执行。<br>类似于slideChangeTransitionStart，但规定了方向</td>
+<td></td>
+</tr>
+<tr>
+<td>slidePrevTransitionEnd</td>
+<td></td>
+<td>回调函数，slider向后(左、上)切换结束时执行。<br>类似于slideChangeTransitionEnd，但规定了方向</td>
+<td></td>
+</tr>
+<tr>
+<td>transitionStart</td>
+<td></td>
+<td>回调函数，过渡开始时触发</td>
+<td></td>
+</tr>
+<tr>
+<td>transitionEnd</td>
+<td></td>
+<td>回调函数，过渡结束时触发</td>
+<td></td>
+</tr>
+<tr>
+<td>touchStart</td>
+<td>event</td>
+<td>回调函数，当碰触到slider时执行。可选touchstart事件作为参数</td>
+<td></td>
+</tr>
+<tr>
+<td>touchMove</td>
+<td>event</td>
+<td>手指触碰Swiper并滑动（手指）时执行，接受touchmove事件作为参数。<br>此时slide不一定会发生移动，比如你手指的移动方向和swiper的切换方向垂直时。对比sliderMove</td>
+<td></td>
+</tr>
+<tr>
+<td>touchMoveOpposite</td>
+<td>event</td>
+<td>回调函数。当手指触碰Swiper并且没有按照direction设定的方向移动时执行。<br>此时slide没有被拖动，这与sliderMove事件相反。可选touchmove事件作为参数。</td>
+<td></td>
+</tr>
+<tr>
+<td>sliderMove</td>
+<td>event</td>
+<td>回调函数，手指触碰Swiper并拖动slide时执行。接受touchmove事件作为参数</td>
+<td></td>
+</tr>
+<tr>
+<td>touchEnd</td>
+<td>event</td>
+<td>回调函数，触摸释放时执行，接受 touchend事件作为参数。（释放即执行）</td>
+<td></td>
+</tr>
+<tr>
+<td>click</td>
+<td>event</td>
+<td>回调函数，当你点击或轻触Swiper 300ms后执行,接受touchend事件作为参数</td>
+<td></td>
+</tr>
+<tr>
+<td>tap</td>
+<td>event</td>
+<td>回调函数，当你轻触(tap)Swiper后执行。在移动端，click会有 200~300 ms延迟，所以请用tap代替click作为点击事件。<br>接受touchend事件作为参数</td>
+<td></td>
+</tr>
+<tr>
+<td>doubleTap</td>
+<td>event</td>
+<td>回调函数，当你两次轻触Swiper 时执行，类似于双击。<br>接受touchend事件作为参数</td>
+<td></td>
+</tr>
+<tr>
+<td>imagesReady</td>
+<td></td>
+<td>回调函数，所有内置图像加载完成后执行，同时“updateOnImagesReady”需设置为“true’</td>
+<td></td>
+</tr>
+<tr>
+<td>progress</td>
+<td>progress</td>
+<td>回调函数，当Swiper的progress被改变时执行。<br>接受Swiper的progress作为参数（0-1）</td>
+<td></td>
+</tr>
+<tr>
+<td>reachBeginning</td>
+<td></td>
+<td>回调函数，Swiper切换到初始化位置时执行</td>
+<td></td>
+</tr>
+<tr>
+<td>reachEnd</td>
+<td></td>
+<td>回调函数，当Swiper切换到最后一个Slide时执行</td>
+<td></td>
+</tr>
+<tr>
+<td>fromEdge</td>
+<td></td>
+<td>当Swiper是从第一个或最后一个Slide切换时执行</td>
+<td></td>
+</tr>
+<tr>
+<td>setTranslate</td>
+<td>translate</td>
+<td>回调函数，每当设置Swiper开始过渡动画时执行。transtion获取到的是Swiper的speed值</td>
+<td></td>
+</tr>
+<tr>
+<td>setTranslation</td>
+<td>transition</td>
+<td>回调函数。当设置wrapper的偏移量时执行。可选swiper对象和wrapper的偏移量作为参数</td>
+<td></td>
+</tr>
+<tr>
+<td>resize</td>
+<td></td>
+<td>当你的浏览器尺寸发生变化时执行</td>
+<td></td>
+</tr>
+<tr>
+<td>observerUpdate</td>
+<td></td>
+<td>观察者模式，swiper内部dom结构变化时触发</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>注： 点击事件触发时机</em></p>
+<ul>
+<li>如果没有触发touchMove()，则释放触摸/鼠标时：</li>
+<li>1.立即执行tap()</li>
+<li>2.如果触摸/鼠标按压时间小于300ms，并且两次触摸/点击间隔大于300ms，延迟300ms执行onClick</li>
+<li>3.如果触摸/鼠标按压时间小于300ms，并且两次触摸/点击间隔小于300ms，立即执行doubleTap</li>
+</ul>
+<h1 id="Components-组件"><a href="#Components-组件" class="headerlink" title="Components 组件"></a>Components 组件</h1><h2 id="1-Navigation-导航组件"><a href="#1-Navigation-导航组件" class="headerlink" title="1. Navigation(导航组件)"></a>1. Navigation(导航组件)</h2><h3 id="Navigation-参数"><a href="#Navigation-参数" class="headerlink" title="Navigation 参数"></a>Navigation 参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    navigation: &#123;</span><br><span class="line">        nextEl: &apos;.swiper-button-next&apos;,</span><br><span class="line">        prevEl: &apos;.swiper-button-prev&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nextEl</td>
+<td>string/HTMLElement</td>
+<td>null</td>
+<td>前进按钮的css选择器或HTML元素</td>
+<td></td>
+</tr>
+<tr>
+<td>prevEl</td>
+<td>string/HTMLElement</td>
+<td>null</td>
+<td>后退按钮的css选择器或HTML元素</td>
+<td></td>
+</tr>
+<tr>
+<td>hideOnClick</td>
+<td>boolean</td>
+<td>false</td>
+<td>点击slide时显示/隐藏按钮</td>
+<td></td>
+</tr>
+<tr>
+<td>disabledClass</td>
+<td>string</td>
+<td>‘swiper-button-disabled’</td>
+<td>前进后退按钮不可用时的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>hiddenClass</td>
+<td>string</td>
+<td>‘swiper-button-hidden’</td>
+<td>按钮隐藏时的Class</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Navigation-方法和属性"><a href="#Navigation-方法和属性" class="headerlink" title="Navigation 方法和属性"></a>Navigation 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.navigation.nextEl</td>
+<td>获取前进按钮的HTML元素</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.navigation.prevEl</td>
+<td>获取后退按钮的HTML元素。通过$prevEl获取DOM7</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.navigation.update()</td>
+<td>更新前进后退导航按钮</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>navigationHide</td>
+<td>事件函数，navigation隐藏时执行</td>
+<td></td>
+</tr>
+<tr>
+<td>navigationShow</td>
+<td>事件函数，navigation显示时执行</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-Pagination-分页组件"><a href="#2-Pagination-分页组件" class="headerlink" title="2. Pagination(分页组件)"></a>2. Pagination(分页组件)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    pagination: &#123;</span><br><span class="line">        el: &apos;.swiper-pagination&apos;,</span><br><span class="line">        type: &apos;bullets&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Pagination-参数"><a href="#Pagination-参数" class="headerlink" title="Pagination 参数"></a>Pagination 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>el</td>
+<td>string</td>
+<td>null</td>
+<td>前进按钮的css选择器或HTML元素</td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>‘bullets’</td>
+<td>分页器样式类型，可选<br>‘bullets’  圆点（默认）<br>‘fraction’  分式 <br>‘progressbar’  进度条<br>‘custom’ 自定义</td>
+<td></td>
+</tr>
+<tr>
+<td>bulletElement</td>
+<td>string</td>
+<td>‘span’</td>
+<td>设定分页器指示器（小点）的HTML标签</td>
+<td></td>
+</tr>
+<tr>
+<td>dynamicBullets</td>
+<td>boolean</td>
+<td>false</td>
+<td>动态分页器，当你的slide很多时，开启后，分页器小点的数量会部分隐藏</td>
+<td></td>
+</tr>
+<tr>
+<td>dynamicMainBullets</td>
+<td>number</td>
+<td>1</td>
+<td>动态分页器的主指示点的数量</td>
+<td></td>
+</tr>
+<tr>
+<td>hideOnClick</td>
+<td>boolean</td>
+<td>true</td>
+<td>默认分页器会一直显示。这个选项设置为true时点击Swiper会隐藏/显示分页器</td>
+<td></td>
+</tr>
+<tr>
+<td>clickable</td>
+<td>boolean</td>
+<td>false</td>
+<td>此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换</td>
+<td></td>
+</tr>
+<tr>
+<td>progressbarOpposite</td>
+<td>boolean</td>
+<td>false</td>
+<td>使进度条分页器与Swiper的direction参数相反，<br>也就是说水平方向切换的swiper显示的是垂直进度条而垂直方向切换的swiper显示水平进度条</td>
+<td></td>
+</tr>
+<tr>
+<td>formatFractionCurrent</td>
+<td>function(number)</td>
+<td>number =&gt; number</td>
+<td>格式化分式分页器的当前指示数值，接受当前数值作为参数，必须返回一个自定义的数值</td>
+<td></td>
+</tr>
+<tr>
+<td>formatFractionTotal</td>
+<td>function(number)</td>
+<td>number =&gt; number</td>
+<td>格式化分式分页器的总指示数值，接受总数值作为参数，必须返回一个自定义的数值</td>
+<td></td>
+</tr>
+<tr>
+<td>renderBullet</td>
+<td>function(index, className)</td>
+<td>null</td>
+<td>渲染分页器小点。这个参数允许完全自定义分页器的指示点。<br>接受指示点索引和指示点类名作为参数</td>
+<td></td>
+</tr>
+<tr>
+<td>renderFraction</td>
+<td>function(currentClass, totalClass)</td>
+<td>null</td>
+<td>自定义分式类型分页器，当分页器类型设置为分式时可用</td>
+<td></td>
+</tr>
+<tr>
+<td>renderProgressbar</td>
+<td>function(progressbarFillClass)</td>
+<td>null</td>
+<td>自定义进度条类型分页器，当分页器类型设置为进度条时可用</td>
+<td></td>
+</tr>
+<tr>
+<td>renderCustom</td>
+<td>function(swiper, current, total)</td>
+<td>null</td>
+<td>自定义特殊类型分页器，当分页器类型设置为自定义时可用</td>
+<td></td>
+</tr>
+<tr>
+<td>bulletClass</td>
+<td>string</td>
+<td>‘swiper-pagination-bullet’</td>
+<td>pagination分页器内元素的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>bulletActiveClass</td>
+<td>string</td>
+<td>‘swiper-pagination-bullet-active’</td>
+<td>pagination分页器内活动(active)元素的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>modifierClass</td>
+<td>string</td>
+<td>‘swiper-pagination-‘</td>
+<td>修改以swiper-pagination-为前缀的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>currentClass</td>
+<td>string</td>
+<td>‘swiper-pagination-current’</td>
+<td>分式类型分页器的当前索引的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>totalClass</td>
+<td>string</td>
+<td>‘swiper-pagination-hidden’</td>
+<td>分式类型分页器总数的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>hiddenClass</td>
+<td>string</td>
+<td>‘swiper-pagination-hidden’</td>
+<td>分页器隐藏时的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>progressbarFillClass</td>
+<td>string</td>
+<td>‘swiper-pagination-progressbar-fill’</td>
+<td>进度条型分页器的指示条的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>clickableClass</td>
+<td>string</td>
+<td>‘swiper-pagination-clickable’</td>
+<td>可点击的pagination的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>lockClass</td>
+<td>string</td>
+<td>‘swiper-pagination-lock’</td>
+<td>禁止的pagination的类名</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Pagination-方法和属性"><a href="#Pagination-方法和属性" class="headerlink" title="Pagination 方法和属性"></a>Pagination 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.pagination.el</td>
+<td>获取分页器导航的容器元素</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.pagination.bullets</td>
+<td>获取Swiper的分页器的小点bullets的Dom7对象数组。<br>通过类似mySwiper.pagination.bullets[1]获取其中某个</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.pagination.render()</td>
+<td>渲染分页器</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.pagination.update()</td>
+<td>更新分页器</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Pagination-事件"><a href="#Pagination-事件" class="headerlink" title="Pagination 事件"></a>Pagination 事件</h3><table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>paginationRender</td>
+<td>swiper, paginationEl</td>
+<td>分页器渲染时触发事件</td>
+<td></td>
+</tr>
+<tr>
+<td>paginationUpdate</td>
+<td>swiper, paginationEl</td>
+<td>分页器更新时触发事件</td>
+<td></td>
+</tr>
+<tr>
+<td>paginationHide</td>
+<td></td>
+<td>事件函数，隐藏分页器时执行</td>
+<td></td>
+</tr>
+<tr>
+<td>paginationShow</td>
+<td></td>
+<td>事件函数，分页器显示时执行</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-Scrollbar-滚动条组件"><a href="#3-Scrollbar-滚动条组件" class="headerlink" title="3. Scrollbar(滚动条组件)"></a>3. Scrollbar(滚动条组件)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    scrollbar: &#123;</span><br><span class="line">        el: &apos;.swiper-scrollbar&apos;,</span><br><span class="line">        draggable: true,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Scrollbar-参数"><a href="#Scrollbar-参数" class="headerlink" title="Scrollbar 参数"></a>Scrollbar 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>el</td>
+<td>string/HTMLElement</td>
+<td>null</td>
+<td>Scrollbar容器的css选择器或HTML元素</td>
+<td></td>
+</tr>
+<tr>
+<td>hide</td>
+<td>boolean</td>
+<td>true</td>
+<td>滚动条是否自动隐藏。默认：false，不会自动隐藏</td>
+<td></td>
+</tr>
+<tr>
+<td>draggable</td>
+<td>boolean</td>
+<td>false</td>
+<td>该参数设置为true时允许拖动滚动条</td>
+<td></td>
+</tr>
+<tr>
+<td>snapOnRelease</td>
+<td>boolean</td>
+<td>true</td>
+<td>如果设置为false，释放滚动条时slide不会自动贴合</td>
+<td></td>
+</tr>
+<tr>
+<td>dragSize</td>
+<td>string/number</td>
+<td>‘auto’</td>
+<td>设置滚动条指示的尺寸。默认’auto’: 自动，或者设置num(px)</td>
+<td></td>
+</tr>
+<tr>
+<td>lockClass</td>
+<td>string</td>
+<td>‘swiper-scrollbar-lock’</td>
+<td>禁止的滚动条类名</td>
+<td></td>
+</tr>
+<tr>
+<td>dragClass</td>
+<td>string</td>
+<td>‘swiper-scrollbar-drag’</td>
+<td>可拖拽的滚动条类名</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Scrollbar-方法和属性"><a href="#Scrollbar-方法和属性" class="headerlink" title="Scrollbar 方法和属性"></a>Scrollbar 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.scrollbar.el</td>
+<td>获取滚动条的HTML元素，还可通过$el获取DOM7</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.scrollbar.dragEl</td>
+<td>获取滚动条指示条的HTML元素，还可通过$dragEl获取DOM7</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.scrollbar.updateSize()</td>
+<td>更新滚动条</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-Autoplay"><a href="#4-Autoplay" class="headerlink" title="4. Autoplay"></a>4. Autoplay</h2><p>autoplay: {boolean|object}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    autoplay: &#123;</span><br><span class="line">        delay: 5000,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Autoplay-参数"><a href="#Autoplay-参数" class="headerlink" title="Autoplay 参数"></a>Autoplay 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>delay</td>
+<td>number</td>
+<td>3000</td>
+<td>自动切换的时间间隔，单位ms<br>你还可以在某个slide上设置单独的停留时间，<br>例&lt;div class=”swiper-slide” data-swiper-autoplay=”2000”></td>
+<td></td>
+</tr>
+<tr>
+<td>stopOnLastSlide</td>
+<td>boolean</td>
+<td>false</td>
+<td>如果设置为true，当切换到最后一个slide时停止自动切换</td>
+<td></td>
+</tr>
+<tr>
+<td>disableOnInteraction</td>
+<td>boolean</td>
+<td>true</td>
+<td>用户操作swiper之后，是否禁止autoplay。默认为true：停止。<br>如果设置为false，用户操作swiper之后自动切换不会停止，每次都会重新启动autoplay。<br>操作包括触碰，拖动，点击pagination等</td>
+<td></td>
+</tr>
+<tr>
+<td>reverseDirection</td>
+<td>boolean</td>
+<td>false</td>
+<td>开启反向自动轮播</td>
+<td></td>
+</tr>
+<tr>
+<td>waitForTransition</td>
+<td>boolean</td>
+<td>true</td>
+<td>等待过渡完毕。自动切换会在slide过渡完毕后才开始计时。<br>虚拟位移状态下自动切换（virtualTranslate）可能需要关闭此选项</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Autoplay-方法和属性"><a href="#Autoplay-方法和属性" class="headerlink" title="Autoplay 方法和属性"></a>Autoplay 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.autoplay.running</td>
+<td>如果Swiper开启了autoplay，这个值为true</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.autoplay.start()</td>
+<td>开始自动切换。一般用来做“Play”按钮</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.autoplay.stop()</td>
+<td>停止自动切换。一般用来制作“pause”按钮</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Autoplay-事件"><a href="#Autoplay-事件" class="headerlink" title="Autoplay 事件"></a>Autoplay 事件</h3><table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>autoplayStart</td>
+<td></td>
+<td>开始自动切换时触发事件</td>
+<td></td>
+</tr>
+<tr>
+<td>autoplayStop</td>
+<td></td>
+<td>停止自动切换时触发事件</td>
+<td></td>
+</tr>
+<tr>
+<td>autoplay</td>
+<td></td>
+<td>autoplay状态改变时触发事件</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-Parallax"><a href="#5-Parallax" class="headerlink" title="5. Parallax"></a>5. Parallax</h2><h3 id="Parallax-参数"><a href="#Parallax-参数" class="headerlink" title="Parallax 参数"></a>Parallax 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parallax</td>
+<td>boolean</td>
+<td>false</td>
+<td>设置为true开启视差效果。<br>效果可以应用于container或slide的子元素。当应用于container的子元素（常用于视差背景图），每次切换时视差效果仅有设定值的slide个数-1分之1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>1.视差位移变化<br>在所需要的元素上增加data-swiper-parallax属性（与Swiper切换方向相同）或data-swiper-parallax-x （x方向） data-swiper-parallax-y（y方向）</li>
+</ul>
+<p>data-swiper-parallax接受两种类型的参数。<br>          number（单位：px），如-300，从右边300px进入左边出去。<br>          percentage（百分比），移动距离=该元素宽度 * percentage。</p>
+<ul>
+<li><p>2.视差透明度变化<br>在所需要的元素上增加data-swiper-parallax-opacity属性。可选值0-1，如0.5，从半透明进入半透明出去</p>
+</li>
+<li><p>3.视差缩放变化<br>在所需要的元素上增加data-swiper-parallax-scale属性。可选值如0.5，从一半大小进入一半大小出去</p>
+</li>
+</ul>
+<p>还可通过data-swiper-parallax-duration设定视差动画持续时间（ms）。默认值是Swiper的speed，与切换时间同步。</p>
+<p><em>设定透明度或缩放必须同时设定位移，否则无效(4.0.5) &lt;div data-swiper-parallax=”0” data-swiper-parallax-opacity=”0.5”>透明度变化&lt;/div></em> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;swiper-container&quot;&gt;</span><br><span class="line">&lt;div style=&quot;background-image:url(/img/Parallax.jpg)&quot; data-swiper-parallax=&quot;-23%&quot; data-swiper-parallax-duration=&quot;3000&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;swiper-wrapper&quot;&gt;</span><br><span class="line">       &lt;div class=&quot;swiper-slide&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;title&quot; data-swiper-parallax=&quot;-100&quot;&gt;从右边100px开始进入&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;subtitle&quot; data-swiper-parallax=&quot;-200&quot;&gt;从右边200px开始进入&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;text&quot; data-swiper-parallax=&quot;-300&quot; data-swiper-parallax-duration=&quot;600&quot;&gt;</span><br><span class="line">              &lt;p&gt;从右边300px开始进入，时间600ms&lt;/p&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;div data-swiper-parallax=&quot;0&quot; data-swiper-parallax-opacity=&quot;0.5&quot; &gt;透明度变化&lt;/div&gt;</span><br><span class="line">            &lt;div data-swiper-parallax-scale=&quot;0.15&quot; &gt;缩放变化&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script language=&quot;javascript&quot;&gt; </span><br><span class="line">    var mySwiper = new Swiper(&apos;.swiper-container&apos;,&#123;</span><br><span class="line">        parallax : true,</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="6-Lazy-Loading"><a href="#6-Lazy-Loading" class="headerlink" title="6. Lazy Loading"></a>6. Lazy Loading</h2><p>lazy: {object|boolean}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    lazy: &#123;</span><br><span class="line">        loadPrevNext: true,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>设为true开启图片延迟加载默认值，使preloadImages无效。或者设置延迟加载选项。</p>
+<p>图片延迟加载：需要将图片img标签的src改写成data-src，并且增加类名swiper-lazy。<br>背景图延迟加载：载体增加属性data-background，并且增加类名swiper-lazy。</p>
+<p>还可以加一个预加载，&lt;div class=”swiper-lazy-preloader”>&lt;/div><br>或者白色的&lt;div class=”swiper-lazy-preloader swiper-lazy-preloader-white”>&lt;/div></p>
+<p>当你设置了slidesPerView:’auto’ 或者 slidesPerView &gt; 1，还需要开启watchSlidesVisibility</p>
+<h3 id="Lazy-Loading-参数"><a href="#Lazy-Loading-参数" class="headerlink" title="Lazy Loading 参数"></a>Lazy Loading 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>loadPrevNext</td>
+<td>boolean</td>
+<td>false</td>
+<td>设置为true允许将延迟加载应用到最接近的slide的图片（前一个和后一个slide）</td>
+<td></td>
+</tr>
+<tr>
+<td>loadPrevNextAmount</td>
+<td>number</td>
+<td>1</td>
+<td>设置在延迟加载图片时提前多少个slide。个数不可少于slidesPerView的数量。<br>默认为1，提前1个slide加载图片，例如切换到第三个slide时加载第四个slide里面的图片</td>
+<td></td>
+</tr>
+<tr>
+<td>loadOnTransitionStart</td>
+<td>boolean</td>
+<td>false</td>
+<td>默认当过渡到slide后开始加载图片，如果你想在过渡一开始就加载，设置为true</td>
+<td></td>
+</tr>
+<tr>
+<td>elementClass</td>
+<td>string</td>
+<td>‘swiper-lazy’</td>
+<td>延迟加载的图片的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>loadingClass</td>
+<td>string</td>
+<td>‘swiper-lazy-loading’</td>
+<td>正在进行懒加载的元素的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>loadedClass</td>
+<td>string</td>
+<td>‘swiper-lazy-loaded’</td>
+<td>懒加载完成的元素的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>preloaderClass</td>
+<td>string</td>
+<td>‘swiper-lazy-preloader’</td>
+<td>延时加载时预加载元素（preloader）的类名</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Lazy-Loading-方法和属性"><a href="#Lazy-Loading-方法和属性" class="headerlink" title="Lazy Loading 方法和属性"></a>Lazy Loading 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.lazy.load()</td>
+<td>加载可视区域内（或前后）的图片。<br>swiper在初始化、切换、拖动滚动条时会自动使用这个方法来加载图片。<br>但是有时候你可能需要手动运行这个方法，例如你自定义了一个奇异的切换方式</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.lazy.loadInSlide(index)</td>
+<td>根据slide的索引加载图片</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Lazy-Loading-事件"><a href="#Lazy-Loading-事件" class="headerlink" title="Lazy Loading 事件"></a>Lazy Loading 事件</h3><table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lazyImageLoad</td>
+<td>slideEl, imageEl</td>
+<td>回调函数，图片延迟加载开始时执行。slide中每有一张图片被延迟加载就执行一次。<br>接受延迟加载的slide，延迟加载的img作为参数（可选）</td>
+<td></td>
+</tr>
+<tr>
+<td>lazyImageReady</td>
+<td>slideEl, imageEl</td>
+<td>回调函数，图片延迟加载结束时执行。slide中每有一张图片被延迟加载就执行一次。<br>接受延迟加载的slide，延迟加载的img作为参数（可选）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-Fade-Effect"><a href="#7-Fade-Effect" class="headerlink" title="7. Fade Effect"></a>7. Fade Effect</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    fadeEffect: &#123;</span><br><span class="line">        crossFade: true</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Fade-Effect-参数"><a href="#Fade-Effect-参数" class="headerlink" title="Fade Effect 参数"></a>Fade Effect 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>crossFade</td>
+<td>boolean</td>
+<td>false</td>
+<td>fade效果参数。可选参数：crossFade。<br>默认：false。关闭淡出。<br>过渡时，原slide透明度为1（不淡出），过渡中的slide透明度从0-&gt;1（淡入），其他slide透明度0。<br>可选值：true。开启淡出。<br>过渡时，原slide透明度从1-&gt;0（淡出），过渡中的slide透明度从0-&gt;1（淡入），其他slide透明度0。<br>当你的slide中图片大小不同时可以用到。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-Coverflow-Effect"><a href="#8-Coverflow-Effect" class="headerlink" title="8. Coverflow Effect"></a>8. Coverflow Effect</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    coverflowEffect: &#123;</span><br><span class="line">        rotate: 30,</span><br><span class="line">        slideShadows: false,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Coverflow-Effect-参数"><a href="#Coverflow-Effect-参数" class="headerlink" title="Coverflow Effect 参数"></a>Coverflow Effect 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>slideShadows</td>
+<td>boolean</td>
+<td>true</td>
+<td>开启slide阴影</td>
+<td></td>
+</tr>
+<tr>
+<td>rotate</td>
+<td>number</td>
+<td>50</td>
+<td>slide做3d旋转时Y轴的旋转角度</td>
+<td></td>
+</tr>
+<tr>
+<td>stretch</td>
+<td>number</td>
+<td>0</td>
+<td>每个slide之间的拉伸值，越大slide靠得越紧</td>
+<td></td>
+</tr>
+<tr>
+<td>depth</td>
+<td>number</td>
+<td>100</td>
+<td>slide的位置深度。值越大z轴距离越远，看起来越小</td>
+<td></td>
+</tr>
+<tr>
+<td>modifier</td>
+<td>number</td>
+<td>1</td>
+<td>depth和rotate和stretch的倍率，相当于depth<em>modifier、rotate</em>modifier、stretch*modifier，值越大这三个参数的效果越明显</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-Flip-Effect"><a href="#9-Flip-Effect" class="headerlink" title="9. Flip Effect"></a>9. Flip Effect</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    flipEffect: &#123;</span><br><span class="line">        rotate: 30,</span><br><span class="line">        slideShadows: false,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Flip-Effect-参数"><a href="#Flip-Effect-参数" class="headerlink" title="Flip Effect 参数"></a>Flip Effect 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>slideShadows</td>
+<td>boolean</td>
+<td>true</td>
+<td>slides的阴影</td>
+<td></td>
+</tr>
+<tr>
+<td>limitRotation</td>
+<td>boolean</td>
+<td>true</td>
+<td>限制最大旋转角度为180度</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-Cube-Effect"><a href="#10-Cube-Effect" class="headerlink" title="10. Cube Effect"></a>10. Cube Effect</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    cubeEffect: &#123;</span><br><span class="line">        slideShadows: false,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Cube-Effect-参数"><a href="#Cube-Effect-参数" class="headerlink" title="Cube Effect 参数"></a>Cube Effect 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>slideShadows</td>
+<td>boolean</td>
+<td>true</td>
+<td>开启slide阴影</td>
+<td></td>
+</tr>
+<tr>
+<td>shadow</td>
+<td>boolean</td>
+<td>true</td>
+<td>开启投影</td>
+<td></td>
+</tr>
+<tr>
+<td>shadowOffset</td>
+<td>number</td>
+<td>20</td>
+<td>投影距离,单位px</td>
+<td></td>
+</tr>
+<tr>
+<td>shadowScale</td>
+<td>number</td>
+<td>0.94</td>
+<td>投影缩放比例</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="11-Thumbs"><a href="#11-Thumbs" class="headerlink" title="11. Thumbs"></a>11. Thumbs</h2><p>设置作为缩略图的swiper对象。有两种方式：<br>1.先初始化缩略图Swiper，再初始化banner Swiper<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var thumbsSwiper = new Swiper(&apos;.swiper-container-thumbs&apos;, &#123;</span><br><span class="line">    slidesPerView: 5,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    ...</span><br><span class="line">    thumbs: &#123;</span><br><span class="line">        swiper: thumbsSwiper</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>2.初始化banner Swiper的时候初始化缩略图Swiper<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    ...</span><br><span class="line">    thumbs: &#123;</span><br><span class="line">        swiper: &#123;</span><br><span class="line">            el: &apos;.swiper-container-thumbs&apos;,</span><br><span class="line">            slidesPerView: 5,</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Thumbs-参数"><a href="#Thumbs-参数" class="headerlink" title="Thumbs 参数"></a>Thumbs 参数</h3><p>thumbs组件专门用于制作带缩略图的swiper，比使用controller组件更为简便</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>swiper</td>
+<td>object Swiper</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>slideThumbActiveClass</td>
+<td>string</td>
+<td>‘swiper-slide-thumb-active’</td>
+<td>设置缩略图Swiper的活动块的附加类名。<br>banner Swiper切换时，缩略图Swiper的原活动块类名swiper-slide-active不会切换，<br>而缩略图Swiper的附加类名swiper-slide-thumb-active会切换</td>
+<td></td>
+</tr>
+<tr>
+<td>thumbsContainerClass</td>
+<td>string</td>
+<td>‘swiper-container-thumbs’</td>
+<td>设置缩略图Swiper的container的附加类名</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Thumbs-方法和属性"><a href="#Thumbs-方法和属性" class="headerlink" title="Thumbs 方法和属性"></a>Thumbs 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.thumbs.swiper</td>
+<td>获取缩略图Swiper的实例</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="12-Zoom-缩放"><a href="#12-Zoom-缩放" class="headerlink" title="12. Zoom (缩放)"></a>12. Zoom (缩放)</h2><p>zoom: {object|boolean}</p>
+<p>开启焦距功能：双击slide会放大/缩小，并且在手机端可双指触摸缩放。可设置缩放选项或设为true使用默认值。</p>
+<p>需要在slide中增加类名swiper-zoom-container，结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;swiper-slide&quot;&gt; &lt;div class=&quot;swiper-zoom-container&quot;&gt; &lt;img src=&quot;path/to/image&quot;&gt; &lt;/div&gt; &lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    zoom: &#123;</span><br><span class="line">        maxRatio: 5,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Zoom-参数"><a href="#Zoom-参数" class="headerlink" title="Zoom 参数"></a>Zoom 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>maxRatio</td>
+<td>number</td>
+<td>3</td>
+<td>最大缩放焦距（放大倍率）。<br>如果要在单个slide上设置，可以使用data-swiper-zoom</td>
+<td></td>
+</tr>
+<tr>
+<td>minRatio</td>
+<td>number</td>
+<td>1</td>
+<td>最小缩放焦距（缩小倍率）</td>
+<td></td>
+</tr>
+<tr>
+<td>toggle</td>
+<td>boolean</td>
+<td>true</td>
+<td>是否允许双击缩放<br>设置为false，不允许双击缩放，只允许手机端触摸缩放</td>
+<td></td>
+</tr>
+<tr>
+<td>containerClass</td>
+<td>string</td>
+<td>‘swiper-zoom-container’</td>
+<td>zoom container的类名</td>
+<td></td>
+</tr>
+<tr>
+<td>zoomedSlideClass</td>
+<td>string</td>
+<td>‘swiper-slide-zoomed’</td>
+<td>被缩放的slide的类名</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Zoom-方法和属性"><a href="#Zoom-方法和属性" class="headerlink" title="Zoom 方法和属性"></a>Zoom 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.zoom.enabled</td>
+<td>判断zoom是否开启</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.zoom.scale</td>
+<td>获取当前缩放的图片的比例</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.zoom.enable()</td>
+<td>开启zoom</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.zoom.disable()</td>
+<td>禁止zoom模式</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.zoom.in()</td>
+<td>zoom模式下，当前的图片放大</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.zoom.out()</td>
+<td>zoom模式下，当前的图片缩小</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.zoom.toggle()</td>
+<td>zoom模式下，当前的图片放大/缩小</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Zoom-事件"><a href="#Zoom-事件" class="headerlink" title="Zoom 事件"></a>Zoom 事件</h3><table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zoomChange</td>
+<td>scale, imageEl, slideEl</td>
+<td>当zoom变化时，触发此回调函数，接受scale, imageEl 和slideEl作为参数。<br>scale：缩放的倍数<br>imageEl：缩放的图片的HTML<br>slideEl：缩放的slide的HTML</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="13-Keyboard-Control"><a href="#13-Keyboard-Control" class="headerlink" title="13. Keyboard Control"></a>13. Keyboard Control</h2><p>是否开启键盘控制Swiper切换。设置为true时，能使用键盘的方向键控制slide切换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    keyboard: &#123;</span><br><span class="line">        enabled: true,</span><br><span class="line">        onlyInViewport: false,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Keyboard-Control-参数"><a href="#Keyboard-Control-参数" class="headerlink" title="Keyboard Control 参数"></a>Keyboard Control 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td>boolean</td>
+<td>false</td>
+<td>开启后可以使用键盘切换</td>
+<td></td>
+</tr>
+<tr>
+<td>onlyInViewport</td>
+<td>boolean</td>
+<td>true</td>
+<td>默认仅控制当前窗口内的swiper切换。当swiper离开可视区域则无法切换</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Keyboard-Control-方法和属性"><a href="#Keyboard-Control-方法和属性" class="headerlink" title="Keyboard Control 方法和属性"></a>Keyboard Control 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.keyboard.enabled</td>
+<td>获取键盘状态</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.keyboard.enable()</td>
+<td>开启键盘控制</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.keyboard.disable()</td>
+<td>禁止键盘控制</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="14-Mousewheel-Control"><a href="#14-Mousewheel-Control" class="headerlink" title="14. Mousewheel Control"></a>14. Mousewheel Control</h2><p>开启鼠标滚轮控制Swiper切换。可设置鼠标选项，或true使用默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    mousewheel: &#123;</span><br><span class="line">        invert: true,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Mousewheel-Control-参数"><a href="#Mousewheel-Control-参数" class="headerlink" title="Mousewheel Control 参数"></a>Mousewheel Control 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>forceToAxis</td>
+<td>boolean</td>
+<td>false</td>
+<td>当值为true让鼠标滚轮固定于轴向。<br>当水平mode时的鼠标滚轮只有水平滚动才会起效，当垂直mode时的鼠标滚轮只有垂直滚动才会起效。<br>普通家用鼠标只有垂直方向的滚动</td>
+<td></td>
+</tr>
+<tr>
+<td>releaseOnEdges</td>
+<td>boolean</td>
+<td>false</td>
+<td>如果开启这个参数，当Swiper处于边缘位置时（第一个或最后一个slide），<br>Swiper释放鼠标滚轮事件，鼠标可以控制页面滚动</td>
+<td></td>
+</tr>
+<tr>
+<td>invert</td>
+<td>boolean</td>
+<td>false</td>
+<td>这个参数会使鼠标滚轮控制方向反转</td>
+<td></td>
+</tr>
+<tr>
+<td>sensitivity</td>
+<td>number</td>
+<td>1</td>
+<td>鼠标滚轮的灵敏度，值越大鼠标滚轮滚动时swiper位移越大</td>
+<td></td>
+</tr>
+<tr>
+<td>eventsTarged</td>
+<td>string / HTMLElement</td>
+<td>‘container’</td>
+<td>鼠标滚轮事件的接收目标(handle)，可以是css选择器或者HTML元素</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Mousewheel-Control-方法和属性"><a href="#Mousewheel-Control-方法和属性" class="headerlink" title="Mousewheel Control 方法和属性"></a>Mousewheel Control 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.mousewheel.enabled</td>
+<td>获取鼠标控制状态，true/false。</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.mousewheel.enable()</td>
+<td>开启鼠标滑轮控制</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.mousewheel.disable()</td>
+<td>禁止鼠标滑轮控制</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="15-Virtual-Slides-虚拟Slide"><a href="#15-Virtual-Slides-虚拟Slide" class="headerlink" title="15. Virtual Slides (虚拟Slide)"></a>15. Virtual Slides (虚拟Slide)</h2><p>开启虚拟Slide功能，可设置选项或设置为true则使用默认值。</p>
+<p>虚拟Slide会在Dom结构中保持尽量少的Slide，只渲染当前可见的slide和前后的slide，而隐藏其他不可见的Slide，每次切换时就渲染新的Slide。当你的Slide很多的时候，尤其是Slide中有复杂的Dom树结构时，性能会有很大的提升</p>
+<p>virtual: {object|boolean}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    virtual: &#123;</span><br><span class="line">        slides: [&apos;Slide 1&apos;, &apos;Slide 2&apos;, &apos;Slide 3&apos;, &apos;Slide 4&apos;, &apos;Slide 5&apos;],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Virtual-Slides-参数"><a href="#Virtual-Slides-参数" class="headerlink" title="Virtual Slides 参数"></a>Virtual Slides 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>slides</td>
+<td>array</td>
+<td>[]</td>
+<td>需要添加的虚拟slide的内容</td>
+<td></td>
+</tr>
+<tr>
+<td>cache</td>
+<td>boolean</td>
+<td>true</td>
+<td>开启虚拟Slide的DOM缓存（默认值）。<br>虚拟的Slide被渲染后，会存入到缓存中，也可以从缓存中重新获得该Slide</td>
+<td></td>
+</tr>
+<tr>
+<td>renderSlide</td>
+<td>function(slide, index)</td>
+<td>null</td>
+<td>此函数设置以何种形式渲染虚拟Slide，接受当前渲染Slide的内容和Index作为参数。<br>必须返回一个slide的HTML结构。即必须包含&lt;div class=”swiper-slide”>&lt;/div></td>
+<td></td>
+</tr>
+<tr>
+<td>renderExternal</td>
+<td>function(data)</td>
+<td>null</td>
+<td>外部渲染函数（比如你使用了其他库，vue或react等），这个函数接受以下四个参数<br>offset Slides左/上的偏移量<br>from - 第一个需要渲染的Slide的索引<br>to - 最后一个需要渲染的Slide的索引<br>slides - 被渲染的Slide数组</td>
+<td></td>
+</tr>
+<tr>
+<td>addSlidesBefore</td>
+<td>number</td>
+<td>0</td>
+<td>一般情况下，virtual swiper只会提前渲染可见slide前后一个（组）slide，<br>如果你想提前渲染前面多个slide，可以设置这个选项</td>
+<td></td>
+</tr>
+<tr>
+<td>addSlidesAfter</td>
+<td>number</td>
+<td>0</td>
+<td>一般情况下，virtual swiper只会提前渲染可见slide前后一个（组）slide，<br>如果你想提前渲染后面多个slide，可以设置这个选项</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Virtual-Slides-方法和属性"><a href="#Virtual-Slides-方法和属性" class="headerlink" title="Virtual Slides 方法和属性"></a>Virtual Slides 方法和属性</h3><table>
+<thead>
+<tr>
+<th>方法或属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mySwiper.virtual.cache</td>
+<td>获取或设置缓存的（已经渲染的）Slide的HTML</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.virtual.from</td>
+<td>获取正在渲染的第一个虚拟Slide的序号</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.virtual.to</td>
+<td>获取正在渲染的最后一个虚拟Slide的序号</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.virtual.slides</td>
+<td>获取全部的虚拟slide数组无论其是否被渲染了。<br>或设置虚拟slide。</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.virtual.appendSlide(slides)</td>
+<td>在全部虚拟Slide的后面插入Slide或Slide的数组</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.virtual.prependSlide(slides)</td>
+<td>在虚拟Slide的前面添加新的Slide或Slide的数组</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.virtual.removeSlide(slideIndexes)</td>
+<td>移除索引为index的虚拟slide。例如：<br>mySwiper.virtual.removeSlide(0); //移除第一个<br>mySwiper.virtual.removeSlide([0, 1]); //移除第一个和第二个</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.virtual.removeAllSlides()</td>
+<td>移除所有虚拟slides</td>
+<td></td>
+</tr>
+<tr>
+<td>mySwiper.virtual.update()</td>
+<td>更新虚拟Slide的状态</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="renderExternal-例子"><a href="#renderExternal-例子" class="headerlink" title="renderExternal 例子"></a>renderExternal 例子</h3><p>With Vue.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;!-- ... --&gt;</span><br><span class="line">    &lt;div class=&quot;swiper-container&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;swiper-wrapper&quot;&gt;</span><br><span class="line">            &lt;!-- It is important to set &quot;left&quot; style prop on every slide --&gt;</span><br><span class="line">            &lt;div class=&quot;swiper-slide&quot;</span><br><span class="line">                v-for=&quot;(slide, index) in virtualData.slides&quot;</span><br><span class="line">                :key=&quot;index&quot;</span><br><span class="line">                :style=&quot;&#123;left: `$&#123;virtualData.offset&#125;px`&#125;&quot;</span><br><span class="line">            &gt;&#123;&#123;slide&#125;&#125;&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;!-- ... --&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    import Swiper from &apos;swiper/dist/js/swiper.esm.bundle&apos;;</span><br><span class="line"></span><br><span class="line">    export default &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            return &#123;</span><br><span class="line">                // dummy slides data</span><br><span class="line">                slides: (function () &#123;</span><br><span class="line">                    var slides = [];</span><br><span class="line">                    for (var i = 0; i &lt; 600; i += 1) &#123;</span><br><span class="line">                        slides.push(&apos;Slide &apos; + (i + 1));</span><br><span class="line">                    &#125;</span><br><span class="line">                    return slides;</span><br><span class="line">                &#125;()),</span><br><span class="line">                // virtual data</span><br><span class="line">                virtualData: &#123;</span><br><span class="line">                    slides: [],</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted() &#123;</span><br><span class="line">            const self = this;</span><br><span class="line">            const swiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">                // ...</span><br><span class="line">                virtual: &#123;</span><br><span class="line">                    slides: self.slides,</span><br><span class="line">                    renderExternal(data) &#123;</span><br><span class="line">                        // assign virtual slides data</span><br><span class="line">                        self.virtualData = data;</span><br><span class="line">                    &#125;,</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>With React.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import Swiper from &apos;swiper/dist/js/swiper.esm.bundle&apos;;</span><br><span class="line"></span><br><span class="line">export default class extends React.Component &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            // dummy slides data</span><br><span class="line">            slides: (function () &#123;</span><br><span class="line">                var slides = [];</span><br><span class="line">                for (var i = 0; i &lt; 600; i += 1) &#123;</span><br><span class="line">                    slides.push(&apos;Slide &apos; + (i + 1));</span><br><span class="line">                &#125;</span><br><span class="line">                return slides;</span><br><span class="line">            &#125;()),</span><br><span class="line">            // virtual data</span><br><span class="line">            virtualData: &#123;</span><br><span class="line">                slides: [],</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        const self = this;</span><br><span class="line">        const swiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">            // ...</span><br><span class="line">            virtual: &#123;</span><br><span class="line">                slides: self.state.slides,</span><br><span class="line">                renderExternal(data) &#123;</span><br><span class="line">                    // assign virtual slides data</span><br><span class="line">                    self.setState(&#123;</span><br><span class="line">                        virtualData: data,</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        &#123;/* ... */&#125;</span><br><span class="line">        &lt;div className=&quot;swiper-container&quot;&gt;</span><br><span class="line">            &lt;div className=&quot;swiper-wrapper&quot;&gt;</span><br><span class="line">            &#123;/* It is important to set &quot;left&quot; style prop on every slide */&#125;</span><br><span class="line">            &#123;this.state.virtualData.slides.map((slide, index) =&gt; (</span><br><span class="line">                &lt;div className=&quot;swiper-slide&quot;</span><br><span class="line">                    key=&#123;index&#125;</span><br><span class="line">                    style=&#123;&#123;left: `$&#123;virtualData.offset&#125;px`&#125;&#125;</span><br><span class="line">                &gt;&#123;slide&#125;&lt;/div&gt;</span><br><span class="line">            ))&#125;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &#123;/* ... */&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="16-Hash-Navigation"><a href="#16-Hash-Navigation" class="headerlink" title="16. Hash Navigation"></a>16. Hash Navigation</h2><p>设置散列导航选项，或true使用默认值。为每个slide增加散列导航（有点像锚链接）。<br>还需要在每个slide处增加data-hash属性。<br>这样当你的swiper切换时你的页面url就会加上这个属性的值了，你也可以通过进入页面时修改页面url让swiper在初始化时切换到指定的slide。</p>
+<p>你可以直接跳转到指定的slide。比如这样：直接跳到第三个slide。</p>
+<p>如果需要浏览器的前进后退按钮配合控制，需要加上watchState</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var swiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    //enable hash navigation</span><br><span class="line">    hashNavigation: true</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Hash-Navigation-参数"><a href="#Hash-Navigation-参数" class="headerlink" title="Hash Navigation 参数"></a>Hash Navigation 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>watchState</td>
+<td>boolean</td>
+<td>false</td>
+<td>开启后观察浏览器窗口的的hashchange状态变化。<br>可通过浏览器历史记录（页面前进后退按钮）或者URL的锚链接改变控制slide切换</td>
+<td></td>
+</tr>
+<tr>
+<td>replaceState</td>
+<td>boolean</td>
+<td>false</td>
+<td>使用replaceState（window.history.replaceState）代替hashnav的hash（document.location.hash）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="17-History-Navigation"><a href="#17-History-Navigation" class="headerlink" title="17. History Navigation"></a>17. History Navigation</h2><p>设置为true开启history导航，或者自定义history导航选项。<br>在slide切换时可无刷新更换URL和浏览器的history.state(pushState)。这样每个slide都会拥有一个自己的URL。<br>使用history还必需在slide上增加一个属性data-history，例&lt;div class=”swiper-slide” data-history=”slide1”>&lt;/div><br>开启history会取消hashnav</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    hashNavigation: &#123;</span><br><span class="line">        replaceState: true,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="History-Navigation-参数"><a href="#History-Navigation-参数" class="headerlink" title="History Navigation 参数"></a>History Navigation 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>replaceState</td>
+<td>boolean</td>
+<td>false</td>
+<td>使用history.replaceState方法替换history.pushState方法</td>
+<td></td>
+</tr>
+<tr>
+<td>key</td>
+<td>string</td>
+<td>‘slides’</td>
+<td>URL中的接续词</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="18-Controller-双向控制"><a href="#18-Controller-双向控制" class="headerlink" title="18. Controller (双向控制)"></a>18. Controller (双向控制)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    controller: &#123;</span><br><span class="line">        inverse: true,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Controller-参数"><a href="#Controller-参数" class="headerlink" title="Controller 参数"></a>Controller 参数</h3><p>设置双向控制的参数，或者true使用默认设置<br>还需要设置control为swiper实例，控制该swiper，而不是被该swiper控制</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>control</td>
+<td>[Swiper Instance]</td>
+<td>undefined</td>
+<td>设置为另外一个Swiper实例开始控制该Swiper</td>
+<td></td>
+</tr>
+<tr>
+<td>inverse</td>
+<td>boolean</td>
+<td>false</td>
+<td>设置为true时控制方向倒转</td>
+<td></td>
+</tr>
+<tr>
+<td>by</td>
+<td>string</td>
+<td>‘slide’</td>
+<td>设定Swiper相互控制时的控制方式。当两个swiper的slide数量不一致时可用。<br>默认为’slide’，自身切换一个slide时，被控制方也切换一个slide。<br>可选：’container’，按自身slide在container中的位置比例进行控制。<br>例：有4个slide的swiper1控制有7个slide的swiper2，<br>设定’slide’, swiper1的1, 2, 3, 4对应控制的swiper2为1, 2, 3, 7。<br>设定by: ‘container’，swiper1的1, 2, 3, 4对应控制的swiper2为1, 3, 5, 7</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="19-Accessibility-a11y-无障碍阅读"><a href="#19-Accessibility-a11y-无障碍阅读" class="headerlink" title="19. Accessibility(a11y) (无障碍阅读)"></a>19. Accessibility(a11y) (无障碍阅读)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;, &#123;</span><br><span class="line">    a11y: &#123;</span><br><span class="line">        prevSlideMessage: &apos;Previous slide&apos;,</span><br><span class="line">        nextSlideMessage: &apos;Next slide&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Accessibility-参数"><a href="#Accessibility-参数" class="headerlink" title="Accessibility 参数"></a>Accessibility 参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>辅助，无障碍阅读。开启本参数为屏幕阅读器添加语音提示等信息，方便视觉障碍者。基于ARIA标准</td>
+<td></td>
+</tr>
+<tr>
+<td>prevSlideMessage</td>
+<td>string</td>
+<td>‘Previous slide’</td>
+<td>在屏幕阅读器为上一页按钮添加信息</td>
+<td></td>
+</tr>
+<tr>
+<td>nextSlideMessage</td>
+<td>string</td>
+<td>‘Next slide’</td>
+<td>在屏幕阅读器为下一页按钮添加信息</td>
+<td></td>
+</tr>
+<tr>
+<td>firstSlideMessage</td>
+<td>string</td>
+<td>‘This is the first slide’</td>
+<td>在屏幕阅读器当处于第一个slide为上一页按钮添加信息</td>
+<td></td>
+</tr>
+<tr>
+<td>lastSlideMessage</td>
+<td>string</td>
+<td>‘This is the last slide’</td>
+<td>在屏幕阅读器当处于最后一个slide为下一页按钮添加信息</td>
+<td></td>
+</tr>
+<tr>
+<td>paginationBulletMessage</td>
+<td>string</td>
+<td>‘Go to slide ‘</td>
+<td>在屏幕阅读器为分页器小点添加信息</td>
+<td></td>
+</tr>
+<tr>
+<td>notificationClass</td>
+<td>string</td>
+<td>‘swiper-notification’</td>
+<td>A11y公告部分的类名</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Swiper-运作原理"><span class="toc-text">Swiper 运作原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Layout-布局"><span class="toc-text">Layout 布局</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化-Swiper"><span class="toc-text">初始化 Swiper</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Swiper-参数-parameters"><span class="toc-text">Swiper 参数 (parameters)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Slider-的方法和属性"><span class="toc-text">Slider 的方法和属性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Events"><span class="toc-text">Events</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Components-组件"><span class="toc-text">Components 组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Navigation-导航组件"><span class="toc-text">1. Navigation(导航组件)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Navigation-参数"><span class="toc-text">Navigation 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Navigation-方法和属性"><span class="toc-text">Navigation 方法和属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件"><span class="toc-text">事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Pagination-分页组件"><span class="toc-text">2. Pagination(分页组件)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pagination-参数"><span class="toc-text">Pagination 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pagination-方法和属性"><span class="toc-text">Pagination 方法和属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pagination-事件"><span class="toc-text">Pagination 事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Scrollbar-滚动条组件"><span class="toc-text">3. Scrollbar(滚动条组件)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Scrollbar-参数"><span class="toc-text">Scrollbar 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scrollbar-方法和属性"><span class="toc-text">Scrollbar 方法和属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Autoplay"><span class="toc-text">4. Autoplay</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Autoplay-参数"><span class="toc-text">Autoplay 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Autoplay-方法和属性"><span class="toc-text">Autoplay 方法和属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Autoplay-事件"><span class="toc-text">Autoplay 事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Parallax"><span class="toc-text">5. Parallax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Parallax-参数"><span class="toc-text">Parallax 参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Lazy-Loading"><span class="toc-text">6. Lazy Loading</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Lazy-Loading-参数"><span class="toc-text">Lazy Loading 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lazy-Loading-方法和属性"><span class="toc-text">Lazy Loading 方法和属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lazy-Loading-事件"><span class="toc-text">Lazy Loading 事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Fade-Effect"><span class="toc-text">7. Fade Effect</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fade-Effect-参数"><span class="toc-text">Fade Effect 参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Coverflow-Effect"><span class="toc-text">8. Coverflow Effect</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Coverflow-Effect-参数"><span class="toc-text">Coverflow Effect 参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Flip-Effect"><span class="toc-text">9. Flip Effect</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flip-Effect-参数"><span class="toc-text">Flip Effect 参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Cube-Effect"><span class="toc-text">10. Cube Effect</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cube-Effect-参数"><span class="toc-text">Cube Effect 参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-Thumbs"><span class="toc-text">11. Thumbs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Thumbs-参数"><span class="toc-text">Thumbs 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thumbs-方法和属性"><span class="toc-text">Thumbs 方法和属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-Zoom-缩放"><span class="toc-text">12. Zoom (缩放)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Zoom-参数"><span class="toc-text">Zoom 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zoom-方法和属性"><span class="toc-text">Zoom 方法和属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zoom-事件"><span class="toc-text">Zoom 事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-Keyboard-Control"><span class="toc-text">13. Keyboard Control</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Keyboard-Control-参数"><span class="toc-text">Keyboard Control 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Keyboard-Control-方法和属性"><span class="toc-text">Keyboard Control 方法和属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-Mousewheel-Control"><span class="toc-text">14. Mousewheel Control</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mousewheel-Control-参数"><span class="toc-text">Mousewheel Control 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mousewheel-Control-方法和属性"><span class="toc-text">Mousewheel Control 方法和属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-Virtual-Slides-虚拟Slide"><span class="toc-text">15. Virtual Slides (虚拟Slide)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Virtual-Slides-参数"><span class="toc-text">Virtual Slides 参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Virtual-Slides-方法和属性"><span class="toc-text">Virtual Slides 方法和属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#renderExternal-例子"><span class="toc-text">renderExternal 例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-Hash-Navigation"><span class="toc-text">16. Hash Navigation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hash-Navigation-参数"><span class="toc-text">Hash Navigation 参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-History-Navigation"><span class="toc-text">17. History Navigation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#History-Navigation-参数"><span class="toc-text">History Navigation 参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-Controller-双向控制"><span class="toc-text">18. Controller (双向控制)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Controller-参数"><span class="toc-text">Controller 参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-Accessibility-a11y-无障碍阅读"><span class="toc-text">19. Accessibility(a11y) (无障碍阅读)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Accessibility-参数"><span class="toc-text">Accessibility 参数</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: Finger Dancer</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://figgerdancer.github.io/undefined/Swiper/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/js/"><i class="fa fa-tags"></i>js</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">博客推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">系列教程</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: ysulixiangyuan@gmail.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/undefined/CSS-GRADIENT/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/undefined/CSS选择器以及CSS三大特性/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>
