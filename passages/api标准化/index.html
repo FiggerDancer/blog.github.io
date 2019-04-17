@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="Finger Dancer">
+  
+  
+  <title>api标准化 | Finger Dancer</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,js,">
+  
+
+  
+  <meta name="description" content="接口标准化">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"fytWPWwaraiV8gXYv4GACKRi-gzGzoHsz","appkey":"jGWkDiRKAKSgQkY51HH8WvBh","comment":true,"count":true},
+    welcome: {"enable":true,"interval":30},
+    start_time: "2019-03-14",
+    passwords: ["38c4136589f4b3400f30fa4fd9b9b9dab1efb5ab2852a27551f4b97845462337", "df403cf37ed85f6012b680232e343601a42375f0b674cdfc6e7c3692368d8439", ],
+    is_post: true,
+    lock: true,
+    author: "Finger Dancer",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">Dancer</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 舞动指尖的不止是钢琴师。。。</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/FiggerDancer" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-04-11
+    </span>
+    
+      <span>
+        | <a href="/categories/前端/"><i class="fa fa-bookmark"></i>前端</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    api标准化
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="1-Navigator"><a href="#1-Navigator" class="headerlink" title="1. Navigator"></a>1. Navigator</h1><h2 id="1-1-Webview-窗口"><a href="#1-1-Webview-窗口" class="headerlink" title="1.1 Webview 窗口"></a>1.1 Webview 窗口</h2><h3 id="1-1-1-let-ref-Navigator-open-url-target-Webview"><a href="#1-1-1-let-ref-Navigator-open-url-target-Webview" class="headerlink" title="1.1.1 let ref = Navigator.open(url, target):Webview"></a>1.1.1 let ref = Navigator.open(url, target):Webview</h3>打开新页面
+<li>ref: 当 target 为 ‘_blank’ 时，打开新窗口的对象 </li>
+<li>url: 新窗口打开的 url 地址</li>
+<li>target: <ul>
+<li>_self: 在当前 Webview 重定向 url 地址 (暂时未使用)</li>
+<li>_blank: 打开新的 Webview url 地址</li>
+<li>_system: 打开系统默认浏览器新建窗口，指向 url 地址 (PC 下载错误提示去官网下载，打开官网)</li>
+</ul>
+</li>
+
+<h3 id="1-1-2-let-webview-Webview-on-eventname-callback"><a href="#1-1-2-let-webview-Webview-on-eventname-callback" class="headerlink" title="1.1.2 let webview = Webview.on(eventname, callback)"></a>1.1.2 let webview = Webview.on(eventname, callback)</h3><p>增加 Webview 监听事件</p>
+<ul>
+<li>eventname: {String}<ul>
+<li>enter: 进入 Webview </li>
+<li>exit: Webview 关闭时触发</li>
+<li>message: Webview 接受到信息 //参考浏览器原生 window.addEventListener(‘message’,function(params))</li>
+<li>pause: Webview 隐藏</li>
+<li>resume: Webview 页面再可见</li>
+</ul>
+</li>
+<li>callback: {Function}<ul>
+<li>params: {Object}<ul>
+<li>url: {String} Webview 的 url</li>
+<li>data: {String|Object} 接受到的信息</li>
+<li>origin: {String} 来源路径</li>
+<li>timeStamp: {Number} 时间戳</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-1-3-let-webview-Webview-off-eventname-callback"><a href="#1-1-3-let-webview-Webview-off-eventname-callback" class="headerlink" title="1.1.3 let webview = Webview.off(eventname,callback)"></a>1.1.3 let webview = Webview.off(eventname,callback)</h3><p>移除 Webview 监听事件,不填写 callback 删除 eventname 所有回调</p>
+<h3 id="1-1-4-Webview-postMessage-message"><a href="#1-1-4-Webview-postMessage-message" class="headerlink" title="1.1.4 Webview.postMessage(message)"></a>1.1.4 Webview.postMessage(message)</h3><p>向自己发送消息，通过 message 监听</p>
+<ul>
+<li>message: {Object|String} 发送信息 //参考浏览器原生 window.postMessage(message)</li>
+</ul>
+<h3 id="1-1-5-Webview-close"><a href="#1-1-5-Webview-close" class="headerlink" title="1.1.5 Webview.close()"></a>1.1.5 Webview.close()</h3><p>关闭 Webview</p>
+<h3 id="1-1-6-Webview-show"><a href="#1-1-6-Webview-show" class="headerlink" title="1.1.6 Webview.show()"></a>1.1.6 Webview.show()</h3><p>显示 Webview</p>
+<h3 id="1-1-7-Webview-hide"><a href="#1-1-7-Webview-hide" class="headerlink" title="1.1.7 Webview.hide()"></a>1.1.7 Webview.hide()</h3><p>隐藏 Webview</p>
+<h2 id="1-2-Client-客户端"><a href="#1-2-Client-客户端" class="headerlink" title="1.2 Client 客户端"></a>1.2 Client 客户端</h2><h3 id="1-2-1-let-clientInfo-Navigator-getClientInfo"><a href="#1-2-1-let-clientInfo-Navigator-getClientInfo" class="headerlink" title="1.2.1 let clientInfo = Navigator.getClientInfo()"></a>1.2.1 let clientInfo = Navigator.getClientInfo()</h3><p>获取客户端信息</p>
+<ul>
+<li>clientInfo: {Object}<ul>
+<li>version: {String} 3.0.0.184 版本号</li>
+<li>platform: {String} ios,pc,android 平台</li>
+<li>type: {String} student,teacher 教师，学生</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-2-let-userInfo-Navigator-getUserInfo"><a href="#1-2-2-let-userInfo-Navigator-getUserInfo" class="headerlink" title="1.2.2 let userInfo = Navigator.getUserInfo()"></a>1.2.2 let userInfo = Navigator.getUserInfo()</h3><p>获取用户信息</p>
+<ul>
+<li>userInfo: {Object}<ul>
+<li>userUUid: {String} ? </li>
+<li>userId: {String} 用户ID</li>
+<li>userName: {String} 用户姓名</li>
+<li>realName: {String} 真实姓名</li>
+<li>imgUrl: {String} 用户头像</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-3-let-courseId-Navigator-getCourseId"><a href="#1-2-3-let-courseId-Navigator-getCourseId" class="headerlink" title="1.2.3 let courseId = Navigator.getCourseId()"></a>1.2.3 let courseId = Navigator.getCourseId()</h3><p>获取课程ID</p>
+<ul>
+<li>courseId: {String} 课程ID</li>
+</ul>
+<h3 id="1-2-4-let-isAuthed-Navigator-isAuthed"><a href="#1-2-4-let-isAuthed-Navigator-isAuthed" class="headerlink" title="1.2.4 let isAuthed = Navigator.isAuthed()"></a>1.2.4 let isAuthed = Navigator.isAuthed()</h3><p>用户是否登录</p>
+<ul>
+<li>isAuthed: {Boolean} 是否登录</li>
+</ul>
+<h3 id="1-2-5-Navigator-disableSlide-left-state-right-state"><a href="#1-2-5-Navigator-disableSlide-left-state-right-state" class="headerlink" title="1.2.5 Navigator.disableSlide(left_state, right_state)"></a>1.2.5 Navigator.disableSlide(left_state, right_state)</h3><p>禁止页面左滑或右滑</p>
+<ul>
+<li>left_state: {Number} 左滑 0 激活 1 禁用</li>
+<li>right_state: {Number} 右滑 0 激活 1 禁用 </li>
+</ul>
+<h3 id="1-2-6-Navigator-disableRefresh-state"><a href="#1-2-6-Navigator-disableRefresh-state" class="headerlink" title="1.2.6 Navigator.disableRefresh(state)"></a>1.2.6 Navigator.disableRefresh(state)</h3><p>禁用下拉刷新</p>
+<ul>
+<li>state: {Number} 0 激活 1 禁用</li>
+</ul>
+<h3 id="1-2-7-Navigator-updateNavigationTitle-text"><a href="#1-2-7-Navigator-updateNavigationTitle-text" class="headerlink" title="1.2.7 Navigator.updateNavigationTitle(text)"></a>1.2.7 Navigator.updateNavigationTitle(text)</h3><p>修改客户端原生标题</p>
+<ul>
+<li>text: {String} 标题内容</li>
+</ul>
+<h3 id="1-2-8-Navigator-allClose"><a href="#1-2-8-Navigator-allClose" class="headerlink" title="1.2.8 Navigator.allClose()"></a>1.2.8 Navigator.allClose()</h3><p>关闭所有 Webview （回到书架）</p>
+<h3 id="1-2-9-Navigator-returnIndex"><a href="#1-2-9-Navigator-returnIndex" class="headerlink" title="1.2.9 Navigator.returnIndex()"></a>1.2.9 Navigator.returnIndex()</h3><p>返回首页（目录页）</p>
+<h3 id="1-2-10-Navigator-close"><a href="#1-2-10-Navigator-close" class="headerlink" title="1.2.10 Navigator.close()"></a>1.2.10 Navigator.close()</h3><p>关闭当前页</p>
+<h3 id="1-2-11-Navigator-login"><a href="#1-2-11-Navigator-login" class="headerlink" title="1.2.11 Navigator.login()"></a>1.2.11 Navigator.login()</h3><p>登录</p>
+<h3 id="1-2-12-Navigator-buyBook-productId"><a href="#1-2-12-Navigator-buyBook-productId" class="headerlink" title="1.2.12 Navigator.buyBook(productId)"></a>1.2.12 Navigator.buyBook(productId)</h3><p>购买产品</p>
+<ul>
+<li>productId: {String} 产品ID</li>
+</ul>
+<h3 id="1-2-13-Navigator-share-type-title-desc-url-imgUrl"><a href="#1-2-13-Navigator-share-type-title-desc-url-imgUrl" class="headerlink" title="1.2.13 Navigator.share({type, title, desc, url, imgUrl})"></a>1.2.13 Navigator.share({type, title, desc, url, imgUrl})</h3><p>分享</p>
+<ul>
+<li>type: {Number} // 1 好友 2 朋友圈</li>
+<li>title: {String} // 标题</li>
+<li>desc: {String} // 简要描述</li>
+<li>url: {String} // 要分享的链接</li>
+<li>imgUrl: {String} // 图标地址</li>
+</ul>
+<h1 id="2-Storage"><a href="#2-Storage" class="headerlink" title="2. Storage"></a>2. Storage</h1><h2 id="2-1-Storage-saveData-key-value"><a href="#2-1-Storage-saveData-key-value" class="headerlink" title="2.1 Storage.saveData(key, value)"></a>2.1 Storage.saveData(key, value)</h2><p>存储数据</p>
+<h2 id="2-2-Storage-loadData-key"><a href="#2-2-Storage-loadData-key" class="headerlink" title="2.2 Storage.loadData(key)"></a>2.2 Storage.loadData(key)</h2><p>获取数据</p>
+<h2 id="2-3-Storage-removeData-key"><a href="#2-3-Storage-removeData-key" class="headerlink" title="2.3 Storage.removeData(key)"></a>2.3 Storage.removeData(key)</h2><p>删除数据</p>
+<h1 id="3-File"><a href="#3-File" class="headerlink" title="3. File"></a>3. File</h1><h2 id="3-1-let-file-File-upload-id-url"><a href="#3-1-let-file-File-upload-id-url" class="headerlink" title="3.1 let file = File.upload({id, url})"></a>3.1 let file = File.upload({id, url})</h2><p>上传文件</p>
+<ul>
+<li>id: {String} // 上传 ID</li>
+<li>url: {String} // 文件的阿里云地址<h2 id="3-2-let-file-File-on-eventname-callback"><a href="#3-2-let-file-File-on-eventname-callback" class="headerlink" title="3.2 let file = File.on(eventname, callback)"></a>3.2 let file = File.on(eventname, callback)</h2></li>
+<li>eventname: {String}<ul>
+<li>upload</li>
+</ul>
+</li>
+<li>callback: {Function}<ul>
+<li>params: {Object}<ul>
+<li>id: {String} 文件上传ID</li>
+<li>status: {Number} 0 上传中 -1 失败 1 成功</li>
+<li>progress: {Number} 进度</li>
+<li>code: {Number} 反馈代码</li>
+<li>message: {String} 反馈信息</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-3-let-file-File-off-eventname-callback"><a href="#3-3-let-file-File-off-eventname-callback" class="headerlink" title="3.3 let file = File.off(eventname,callback)"></a>3.3 let file = File.off(eventname,callback)</h2><h1 id="4-Media"><a href="#4-Media" class="headerlink" title="4. Media"></a>4. Media</h1><h2 id="4-1-Audio"><a href="#4-1-Audio" class="headerlink" title="4.1 Audio"></a>4.1 Audio</h2><h3 id="4-1-1-let-audio-new-Media-Audio-src"><a href="#4-1-1-let-audio-new-Media-Audio-src" class="headerlink" title="4.1.1 let audio = new Media.Audio({ src })"></a>4.1.1 let audio = new Media.Audio({ src })</h3><p>创建音频对象</p>
+<h3 id="4-1-2-Audio-play"><a href="#4-1-2-Audio-play" class="headerlink" title="4.1.2 Audio.play()"></a>4.1.2 Audio.play()</h3><p>播放音频</p>
+<h3 id="4-1-3-Audio-pause"><a href="#4-1-3-Audio-pause" class="headerlink" title="4.1.3 Audio.pause()"></a>4.1.3 Audio.pause()</h3><p>暂停音频</p>
+<h3 id="4-1-4-Audio-resume"><a href="#4-1-4-Audio-resume" class="headerlink" title="4.1.4 Audio.resume()"></a>4.1.4 Audio.resume()</h3><p>重启音频</p>
+<h3 id="4-1-5-Audio-stop"><a href="#4-1-5-Audio-stop" class="headerlink" title="4.1.5 Audio.stop()"></a>4.1.5 Audio.stop()</h3><p>停止音频</p>
+<h3 id="4-1-6-Audio-getDuration"><a href="#4-1-6-Audio-getDuration" class="headerlink" title="4.1.6 Audio.getDuration()"></a>4.1.6 Audio.getDuration()</h3><p>获取音频长度</p>
+<h3 id="4-1-7-Audio-getTime"><a href="#4-1-7-Audio-getTime" class="headerlink" title="4.1.7 Audio.getTime()"></a>4.1.7 Audio.getTime()</h3><p>获取播放时间</p>
+<h3 id="4-1-8-Audio-seekTo-milliseconds"><a href="#4-1-8-Audio-seekTo-milliseconds" class="headerlink" title="4.1.8 Audio.seekTo(milliseconds)"></a>4.1.8 Audio.seekTo(milliseconds)</h3><p>定点播放</p>
+<ul>
+<li>milliseconds:{Number} 毫秒</li>
+</ul>
+<h3 id="4-1-9-Audio-setVolume-volume"><a href="#4-1-9-Audio-setVolume-volume" class="headerlink" title="4.1.9 Audio.setVolume(volume)"></a>4.1.9 Audio.setVolume(volume)</h3><p>音频声音大小调整</p>
+<ul>
+<li>volume:{Number} 0.0~1.0</li>
+</ul>
+<h3 id="4-1-10-let-audio-Audio-on-eventname-callback"><a href="#4-1-10-let-audio-Audio-on-eventname-callback" class="headerlink" title="4.1.10 let audio = Audio.on(eventname, callback)"></a>4.1.10 let audio = Audio.on(eventname, callback)</h3><ul>
+<li>eventname: {String}<ul>
+<li>load: 加载</li>
+<li>start: 开始播放</li>
+<li>running: 播放中</li>
+<li>pause: 暂停</li>
+<li>stop: 停止</li>
+<li>error: 错误</li>
+<li>update: 频谱更新</li>
+</ul>
+</li>
+<li>callback: {Function}<ul>
+<li>params: {Object}<ul>
+<li>code: {Number} 错误代码</li>
+<li>message: {String} 错误信息</li>
+<li>fftData: {Array(Number)} 频谱数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-1-11-let-audio-Audio-off-eventname-callback"><a href="#4-1-11-let-audio-Audio-off-eventname-callback" class="headerlink" title="4.1.11 let audio = Audio.off(eventname, callback)"></a>4.1.11 let audio = Audio.off(eventname, callback)</h3><h3 id="4-1-12-Audio-isPlaying-Boolean"><a href="#4-1-12-Audio-isPlaying-Boolean" class="headerlink" title="4.1.12 Audio.isPlaying():Boolean"></a>4.1.12 Audio.isPlaying():Boolean</h3><p>正在播放</p>
+<h3 id="4-1-13-Audio-isLoading-Boolean"><a href="#4-1-13-Audio-isLoading-Boolean" class="headerlink" title="4.1.13 Audio.isLoading():Boolean"></a>4.1.13 Audio.isLoading():Boolean</h3><p>正在加载</p>
+<h2 id="4-2-Recorder"><a href="#4-2-Recorder" class="headerlink" title="4.2 Recorder"></a>4.2 Recorder</h2><h3 id="4-2-1-Recorder-record-net-record-partType"><a href="#4-2-1-Recorder-record-net-record-partType" class="headerlink" title="4.2.1 Recorder.record({net, record, partType})"></a>4.2.1 Recorder.record({net, record, partType})</h3><p>录音</p>
+<ul>
+<li>net: {String|Array} 评分net文件，不传录音时代表不评分</li>
+<li>record: {record} 录音文件名称</li>
+<li>partType: {Number} 0-partA;1-partB;2-partC;3-只录音，不评分</li>
+</ul>
+<h3 id="4-2-2-Recorder-stop"><a href="#4-2-2-Recorder-stop" class="headerlink" title="4.2.2 Recorder.stop()"></a>4.2.2 Recorder.stop()</h3><p>录音停止</p>
+<h3 id="4-2-3-let-time-Recorder-getTime"><a href="#4-2-3-let-time-Recorder-getTime" class="headerlink" title="4.2.3 let time = Recorder.getTime()"></a>4.2.3 let time = Recorder.getTime()</h3><p>获取录音时间</p>
+<ul>
+<li>time: {Number} 当前录制时间</li>
+</ul>
+<h3 id="4-2-4-let-record-Recorder-on-eventname-callback"><a href="#4-2-4-let-record-Recorder-on-eventname-callback" class="headerlink" title="4.2.4 let record = Recorder.on(eventname, callback)"></a>4.2.4 let record = Recorder.on(eventname, callback)</h3><ul>
+<li>eventname: {String}<ul>
+<li>load: 加载</li>
+<li>start: 开始录音</li>
+<li>running: 录制中</li>
+<li>test: 评分</li>
+<li>stop: 停止</li>
+<li>error: 错误</li>
+<li>update: 频谱更新</li>
+</ul>
+</li>
+<li>callback: {Function}<ul>
+<li>params: {Object}<ul>
+<li>code: {Number} 错误代码 – error 事件</li>
+<li>message: {String} 错误信息 – error 事件</li>
+<li>result: {Object} 结果 – stop 事件<ul>
+<li>score: {Number} 评分</li>
+<li>accuracy: {Number} 精确度</li>
+<li>completion: {Number} 完整度</li>
+<li>fluency: {Number} 流畅度</li>
+<li>sentence: {Array} 返回文本</li>
+<li>phoneMap: {Object} 音素</li>
+<li>record_url: {String} 阿里云地址</li>
+<li>duration: {Number} 录音时长</li>
+<li>recordName: {String} 录音名称</li>
+</ul>
+</li>
+<li>fftData: {Array(Number)} 频谱数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-2-5-let-record-Recorder-off-eventname-callback"><a href="#4-2-5-let-record-Recorder-off-eventname-callback" class="headerlink" title="4.2.5 let record = Recorder.off(eventname, callback)"></a>4.2.5 let record = Recorder.off(eventname, callback)</h3><h3 id="4-2-6-Recorder-isRecording-Boolean"><a href="#4-2-6-Recorder-isRecording-Boolean" class="headerlink" title="4.2.6 Recorder.isRecording():Boolean"></a>4.2.6 Recorder.isRecording():Boolean</h3><p>正在录音</p>
+<h3 id="4-2-7-Recorder-isTesting-Boolean"><a href="#4-2-7-Recorder-isTesting-Boolean" class="headerlink" title="4.2.7 Recorder.isTesting():Boolean"></a>4.2.7 Recorder.isTesting():Boolean</h3><p>正在评分</p>
+<h3 id="4-2-8-Recorder-isLoading-Boolean"><a href="#4-2-8-Recorder-isLoading-Boolean" class="headerlink" title="4.2.8 Recorder.isLoading():Boolean"></a>4.2.8 Recorder.isLoading():Boolean</h3><p>正在加载</p>
+<h1 id="5-NetWork"><a href="#5-NetWork" class="headerlink" title="5. NetWork"></a>5. NetWork</h1><h2 id="5-1-HttpClient"><a href="#5-1-HttpClient" class="headerlink" title="5.1 HttpClient"></a>5.1 HttpClient</h2><h3 id="5-1-1-Promise-HttpClient-post-url-type-params-then-callback-call-errFn"><a href="#5-1-1-Promise-HttpClient-post-url-type-params-then-callback-call-errFn" class="headerlink" title="5.1.1 Promise:HttpClient.post(url, {type, params}).then(callback).call(errFn)"></a>5.1.1 Promise:HttpClient.post(url, {type, params}).then(callback).call(errFn)</h3><ul>
+<li>url: {String} url 地址</li>
+<li>type: {Number} 1 实时请求， 2 闲时请求</li>
+<li>params: {Object} 请求数据</li>
+<li>callback: {Function} <ul>
+<li>response: {Object}<ul>
+<li>code: 状态码</li>
+<li>data: 数据</li>
+<li>msg: 信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>errFn: {Function} <ul>
+<li>error: {Object}<ul>
+<li>code: 状态码</li>
+<li>msg: 信息</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="6-Logger"><a href="#6-Logger" class="headerlink" title="6 Logger"></a>6 Logger</h1><h2 id="6-1-Logger-error-…args"><a href="#6-1-Logger-error-…args" class="headerlink" title="6.1 Logger.error(…args)"></a>6.1 Logger.error(…args)</h2><blockquote>
+<p>影响到程序正常运行、当前请求正常运行的异常情况</p>
+</blockquote>
+<h2 id="6-2-Logger-warn-…args"><a href="#6-2-Logger-warn-…args" class="headerlink" title="6.2 Logger.warn(…args)"></a>6.2 Logger.warn(…args)</h2><blockquote>
+<p>不应该出现但是不影响程序、当前请求正常运行的异常情况</p>
+</blockquote>
+<h2 id="6-3-Logger-info-…args"><a href="#6-3-Logger-info-…args" class="headerlink" title="6.3 Logger.info(…args)"></a>6.3 Logger.info(…args)</h2><blockquote>
+<p>系统运行信息,外部接口部分</p>
+</blockquote>
+<h2 id="6-4-Logger-debug-…args"><a href="#6-4-Logger-debug-…args" class="headerlink" title="6.4 Logger.debug(…args)"></a>6.4 Logger.debug(…args)</h2><blockquote>
+<p>主要是在开发期间使用或者当系统出现问题后开发人员介入调试的时候用的，需要有助于提供详细的信息</p>
+</blockquote>
+<ul>
+<li>args {Array}<ul>
+<li>arg {String|Object} // Object 将自动转化为 JSON 字符串， 所有的字符串用空格连接</li>
+</ul>
+</li>
+</ul>
+<h1 id="7-EventBus"><a href="#7-EventBus" class="headerlink" title="7 EventBus"></a>7 EventBus</h1><h2 id="7-1-EventBus-postMessage-message"><a href="#7-1-EventBus-postMessage-message" class="headerlink" title="7.1 EventBus.postMessage(message)"></a>7.1 EventBus.postMessage(message)</h2><ul>
+<li>message: {String|Object} 发送的信息</li>
+</ul>
+<h2 id="7-2-EventBus-recieveMessage-params"><a href="#7-2-EventBus-recieveMessage-params" class="headerlink" title="7.2 EventBus.recieveMessage(params)"></a>7.2 EventBus.recieveMessage(params)</h2><ul>
+<li>data: {String|Object}  收到的信息</li>
+<li>origin: {String} 信息来源</li>
+</ul>
+<h1 id="8-FlipBook"><a href="#8-FlipBook" class="headerlink" title="8 FlipBook"></a>8 FlipBook</h1><h2 id="8-1-let-bookInfo-Object-FlipBook-getBookInfo"><a href="#8-1-let-bookInfo-Object-FlipBook-getBookInfo" class="headerlink" title="8.1 let bookInfo:Object = FlipBook.getBookInfo()"></a>8.1 let bookInfo:Object = FlipBook.getBookInfo()</h2><ul>
+<li>bookInfo: {Object}<ul>
+<li>bookId: {String}</li>
+<li>bookName: {String}</li>
+<li>isFree: {Number} 0 不可用 1 可用</li>
+<li>authDate: {Number} 有效期，剩余天数</li>
+<li>pruductId: {String} 产品ID(购买书可用)</li>
+<li>studyPro: {String} 整本书的学习进度</li>
+<li>price: {String} 价格</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-2-let-catalogNode-Array-FlipBook-getCatalogNode"><a href="#8-2-let-catalogNode-Array-FlipBook-getCatalogNode" class="headerlink" title="8.2 let catalogNode:Array = FlipBook.getCatalogNode()"></a>8.2 let catalogNode:Array = FlipBook.getCatalogNode()</h2><ul>
+<li>catalogNode: {Array(Object)}<ul>
+<li>node: {Object}<ul>
+<li>id: {String}</li>
+<li>displayName: {String}</li>
+<li>order: {Number} 序号</li>
+<li>isContent: {Boolean} 是否是内容节点</li>
+<li>isFree: {Number} 0 不免费 1 免费</li>
+<li>parentId: {String} 父节点</li>
+<li>lockState: {Number} 锁状态 0 解锁 1 已锁</li>
+<li>isPlaned: {Number} 是否配置教学计划: 0 未配置 1 已配置</li>
+<li>beginTime: {Number} 教学计划中的开始时间的时间戳</li>
+<li>endTime: {Number} 教学计划中的结束时间的时间戳</li>
+<li>publishType: {Number} 成绩公布方式 1 实时 2 时间结束时 3 手动</li>
+<li>isPublished: {Number} 0 未发布 1 已发布</li>
+<li>chapterState: {Number} 0 未下载 1 等待下载 2 已下载 3 更新</li>
+<li>type: {Number} 1 章节 2 页面</li>
+<li>welcomeFile: {String} 欢迎页</li>
+<li>studyPro: {String} 章节学习进度</li>
+<li>chapterPoster: {String} 章节封面图</li>
+<li>extendParams: {Object} 扩展字段<ul>
+<li>knowledgeId: {String} 关联的知识点，用于专项练习</li>
+<li>isSimilar: {Number} 是否有同类题，1 有 0 没有</li>
+<li>extend1: {String} 预留扩展字段1</li>
+<li>extend2: {String} 预留扩展字段2</li>
+<li>extend3: {String} 预留扩展字段3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-3-FlipBook-on-eventname-callback"><a href="#8-3-FlipBook-on-eventname-callback" class="headerlink" title="8.3 FlipBook.on(eventname, callback)"></a>8.3 FlipBook.on(eventname, callback)</h2><ul>
+<li>eventname: {String}<ul>
+<li>download</li>
+</ul>
+</li>
+<li>callback: {Function}<ul>
+<li>data: {Object} 下载返回的结果<ul>
+<li>chapterId: {String} 章节ID</li>
+<li>state: {Number} 0 下载 1 解压 2 下载失败 3 解压失败 4 解压成功</li>
+<li>progress: {String} 下载进度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-4-FlipBook-off-eventname-callback"><a href="#8-4-FlipBook-off-eventname-callback" class="headerlink" title="8.4 FlipBook.off(eventname, callback)"></a>8.4 FlipBook.off(eventname, callback)</h2><h2 id="8-5-FlipBook-submitEleAttr-arr"><a href="#8-5-FlipBook-submitEleAttr-arr" class="headerlink" title="8.5 FlipBook.submitEleAttr(arr)"></a>8.5 FlipBook.submitEleAttr(arr)</h2><p>提交每道题作答数据</p>
+<ul>
+<li>arr: {Array(Object)}<ul>
+<li>elementId: {String}</li>
+<li>elementType: {Number}</li>
+<li>elementAttr: {Object}<ul>
+<li>question_id: {String}</li>
+<li>question_type: {Number}</li>
+<li>order: {Number}</li>
+<li>user_score: {Number}</li>
+<li>user_answer: {String}</li>
+<li>result: {Number}</li>
+<li>record_url: {String}</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-6-let-data-FlipBook-getTasksUploadStatus-taskId-String"><a href="#8-6-let-data-FlipBook-getTasksUploadStatus-taskId-String" class="headerlink" title="8.6 let data = FlipBook.getTasksUploadStatus(taskId?:{String})"></a>8.6 let data = FlipBook.getTasksUploadStatus(taskId?:{String})</h2><p>获取客户端上传队列中还未上传成功的task信息</p>
+<ul>
+<li>指定taskId * </li>
+</ul>
+<ul>
+<li>data: {Object}<ul>
+<li>code: {Number} 反馈代码</li>
+<li>message: {String} 反馈信息</li>
+<li>status: {Number} 状态 -1 失败 0 上传中 1 上传成功</li>
+<li>taskId: {String} taskId</li>
+<li>max: {Number} 上传数据总大小</li>
+<li>progress: {Number} 已上传数据大小</li>
+<li>percent: {Number} 上传进度 0~100</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>taskMap *</li>
+</ul>
+<ul>
+<li>data: {Object}<ul>
+<li>${taskId}: {Object}<ul>
+<li>code: {Number} 反馈代码</li>
+<li>message: {String} 反馈信息</li>
+<li>status: {Number} 状态 -1 失败 0 上传中 1 上传成功</li>
+<li>taskId: {String} taskId</li>
+<li>max: {Number} 上传数据总大小</li>
+<li>progress: {Number} 已上传数据大小</li>
+<li>percent: {Number} 上传进度 0~100</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-7-FlipBook-submitTask-data"><a href="#8-7-FlipBook-submitTask-data" class="headerlink" title="8.7 FlipBook.submitTask(data)"></a>8.7 FlipBook.submitTask(data)</h2><p>提交 task 数据</p>
+<ul>
+<li>data: {Object}<ul>
+<li>taskId: {String} task ID</li>
+<li>taskNo: {Number} task 数目</li>
+<li>score: {Number} task 成绩</li>
+<li>chapterId: {String} 章节ID</li>
+<li>percent: {Number} task 完成率</li>
+<li>extendParams: {Object} <ul>
+<li>phonemes: {Array(Object)}<ul>
+<li>phoneme: {Object}<ul>
+<li>phonemeId: {String} 音素 ID</li>
+<li>score: {Number} 0~100 最多保留2位小数</li>
+</ul>
+</li>
+<li>spokens: {Array(Object)} 参考 互动听说-读一读<ul>
+<li>recordUrl: {String} 录音文件地址</li>
+<li>desc: {String} 描述信息</li>
+<li>score: {Number} 分数</li>
+</ul>
+</li>
+<li>countCorrectQuestions: {Number} 是否统计试题做对人数，1 表示统计 参考 每周探索 或者 互动听说-听一听</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-8-FlipBook-deleteChapter-chapterId"><a href="#8-8-FlipBook-deleteChapter-chapterId" class="headerlink" title="8.8 FlipBook.deleteChapter(chapterId)"></a>8.8 FlipBook.deleteChapter(chapterId)</h2><p>删除章节</p>
+<ul>
+<li>chapterId: {String} 章节ID</li>
+</ul>
+<h2 id="8-9-let-pageInfo-FlipBook-loadPageInfo"><a href="#8-9-let-pageInfo-FlipBook-loadPageInfo" class="headerlink" title="8.9 let pageInfo = FlipBook.loadPageInfo()"></a>8.9 let pageInfo = FlipBook.loadPageInfo()</h2><p>页面信息</p>
+<ul>
+<li>pageInfo: {Object}<ul>
+<li>chapterId: {String}</li>
+<li>pageId: {String}</li>
+<li>pageNum: {String}</li>
+<li>displayName: {String}</li>
+<li>fullChapterName: {Array} 完整的章节名称，数组下标从零开始表示最外层章节名称到最里面章节名称</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-10-let-chapterInfo-FlipBook-loadChapterInfo"><a href="#8-10-let-chapterInfo-FlipBook-loadChapterInfo" class="headerlink" title="8.10 let chapterInfo = FlipBook.loadChapterInfo()"></a>8.10 let chapterInfo = FlipBook.loadChapterInfo()</h2><p>章节信息</p>
+<ul>
+<li>chapterInfo: {Object}<ul>
+<li>chapterId: {String} 章节ID</li>
+<li>chapterName: {String} 章节名称</li>
+<li>order: {Number} 序号</li>
+<li>parentId: {String} 父节点</li>
+<li>tasks: {Array(Object)}<ul>
+<li>task: {Object}<ul>
+<li>pages: {Array(Object)} 包含的页面ID<ul>
+<li>page: {Object}<ul>
+<li>pageId: {String} 页面ID</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>score: {Number} task 成绩</li>
+<li>taskId: {String} taskId</li>
+<li>taskName: {String} task 名称</li>
+<li>taskNum: {Number} task 数目</li>
+<li>percent: {Number} 0~100 完成率</li>
+<li>isSubmitFailed: {Number} 是否提交失败</li>
+<li>totalScore: {Number} 总分</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-11-let-taskInfo-FlipBook-loadTaskInfo"><a href="#8-11-let-taskInfo-FlipBook-loadTaskInfo" class="headerlink" title="8.11 let taskInfo = FlipBook.loadTaskInfo()"></a>8.11 let taskInfo = FlipBook.loadTaskInfo()</h2><p>task 信息</p>
+<ul>
+<li>taskInfo: {Object}<ul>
+<li>chapterId: {String}</li>
+<li>taskId: {String}</li>
+<li>order: {Number}</li>
+<li>taskName: {String}</li>
+<li>pages: {Array(Object)} 包含的页面ID<ul>
+<li>page: {Object}<ul>
+<li>pageId: {String} 页面ID</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>lockState: {Number} 锁状态 1 锁定 0 解锁</li>
+<li>isPlaned: {Number} 是否配置了教学计划: 0 未配置 1 已配置</li>
+<li>beginTime: {Number} 教学计划中的开始时间时间戳</li>
+<li>endTime: {Number} 教学计划中的结束时间时间戳</li>
+<li>publishType: {Number} 成绩公布方式: 1 实时 2 时间结束 3 手动</li>
+<li>isPublished: {Number} 是否发布: 0 未发布 1 已发布</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-12-let-answerMark-FlipBook-getAnswerMark-taskId"><a href="#8-12-let-answerMark-FlipBook-getAnswerMark-taskId" class="headerlink" title="8.12 let answerMark = FlipBook.getAnswerMark(taskId)"></a>8.12 let answerMark = FlipBook.getAnswerMark(taskId)</h2><p>获取作答信息</p>
+<ul>
+<li>taskId: {String} task ID </li>
+<li>answerMark: {Object} 作答信息<ul>
+<li>${questionId}: {Object} 小题的 Id 为键值<ul>
+<li>elementList: {Array(Object)} 元素列表<ul>
+<li>element: {Object} 小题元素<ul>
+<li>elementAttr: {Object} 小题元素具体的信息<ul>
+<li>answer: {String} 答案</li>
+<li>duration: {Number} 录音时长</li>
+<li>order: {Number} 顺序</li>
+<li>question_id: {String} </li>
+<li>question_type: {Number} 题型</li>
+<li>result: {Number} -1  0 1</li>
+<li>score: {Number} 成绩</li>
+<li>timestamp: {Number} 时间戳</li>
+<li>user_answer: {String} 用户答案</li>
+<li>user_score: {Number} 用户成绩</li>
+<li>wrongnote_flag: {Number} </li>
+</ul>
+</li>
+<li>elementId: {String} 元素ID</li>
+<li>elementType: {Number} 元素类型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-13-FlipBook-saveAnswerMark-taskId-answerMark"><a href="#8-13-FlipBook-saveAnswerMark-taskId-answerMark" class="headerlink" title="8.13 FlipBook.saveAnswerMark(taskId, answerMark)"></a>8.13 FlipBook.saveAnswerMark(taskId, answerMark)</h2><p>保存作答信息</p>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Navigator"><span class="toc-text">1. Navigator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-Webview-窗口"><span class="toc-text">1.1 Webview 窗口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1-let-ref-Navigator-open-url-target-Webview"><span class="toc-text">1.1.1 let ref = Navigator.open(url, target):Webview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-let-webview-Webview-on-eventname-callback"><span class="toc-text">1.1.2 let webview = Webview.on(eventname, callback)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-3-let-webview-Webview-off-eventname-callback"><span class="toc-text">1.1.3 let webview = Webview.off(eventname,callback)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-4-Webview-postMessage-message"><span class="toc-text">1.1.4 Webview.postMessage(message)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-5-Webview-close"><span class="toc-text">1.1.5 Webview.close()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-6-Webview-show"><span class="toc-text">1.1.6 Webview.show()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-7-Webview-hide"><span class="toc-text">1.1.7 Webview.hide()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Client-客户端"><span class="toc-text">1.2 Client 客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-let-clientInfo-Navigator-getClientInfo"><span class="toc-text">1.2.1 let clientInfo = Navigator.getClientInfo()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-let-userInfo-Navigator-getUserInfo"><span class="toc-text">1.2.2 let userInfo = Navigator.getUserInfo()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-3-let-courseId-Navigator-getCourseId"><span class="toc-text">1.2.3 let courseId = Navigator.getCourseId()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-4-let-isAuthed-Navigator-isAuthed"><span class="toc-text">1.2.4 let isAuthed = Navigator.isAuthed()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-5-Navigator-disableSlide-left-state-right-state"><span class="toc-text">1.2.5 Navigator.disableSlide(left_state, right_state)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-6-Navigator-disableRefresh-state"><span class="toc-text">1.2.6 Navigator.disableRefresh(state)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-7-Navigator-updateNavigationTitle-text"><span class="toc-text">1.2.7 Navigator.updateNavigationTitle(text)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-8-Navigator-allClose"><span class="toc-text">1.2.8 Navigator.allClose()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-9-Navigator-returnIndex"><span class="toc-text">1.2.9 Navigator.returnIndex()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-10-Navigator-close"><span class="toc-text">1.2.10 Navigator.close()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-11-Navigator-login"><span class="toc-text">1.2.11 Navigator.login()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-12-Navigator-buyBook-productId"><span class="toc-text">1.2.12 Navigator.buyBook(productId)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-13-Navigator-share-type-title-desc-url-imgUrl"><span class="toc-text">1.2.13 Navigator.share({type, title, desc, url, imgUrl})</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Storage"><span class="toc-text">2. Storage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Storage-saveData-key-value"><span class="toc-text">2.1 Storage.saveData(key, value)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Storage-loadData-key"><span class="toc-text">2.2 Storage.loadData(key)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Storage-removeData-key"><span class="toc-text">2.3 Storage.removeData(key)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-File"><span class="toc-text">3. File</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-let-file-File-upload-id-url"><span class="toc-text">3.1 let file = File.upload({id, url})</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-let-file-File-on-eventname-callback"><span class="toc-text">3.2 let file = File.on(eventname, callback)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-let-file-File-off-eventname-callback"><span class="toc-text">3.3 let file = File.off(eventname,callback)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Media"><span class="toc-text">4. Media</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-Audio"><span class="toc-text">4.1 Audio</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-1-let-audio-new-Media-Audio-src"><span class="toc-text">4.1.1 let audio = new Media.Audio({ src })</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-2-Audio-play"><span class="toc-text">4.1.2 Audio.play()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-3-Audio-pause"><span class="toc-text">4.1.3 Audio.pause()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-4-Audio-resume"><span class="toc-text">4.1.4 Audio.resume()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-5-Audio-stop"><span class="toc-text">4.1.5 Audio.stop()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-6-Audio-getDuration"><span class="toc-text">4.1.6 Audio.getDuration()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-7-Audio-getTime"><span class="toc-text">4.1.7 Audio.getTime()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-8-Audio-seekTo-milliseconds"><span class="toc-text">4.1.8 Audio.seekTo(milliseconds)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-9-Audio-setVolume-volume"><span class="toc-text">4.1.9 Audio.setVolume(volume)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-10-let-audio-Audio-on-eventname-callback"><span class="toc-text">4.1.10 let audio = Audio.on(eventname, callback)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-11-let-audio-Audio-off-eventname-callback"><span class="toc-text">4.1.11 let audio = Audio.off(eventname, callback)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-12-Audio-isPlaying-Boolean"><span class="toc-text">4.1.12 Audio.isPlaying():Boolean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-13-Audio-isLoading-Boolean"><span class="toc-text">4.1.13 Audio.isLoading():Boolean</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-Recorder"><span class="toc-text">4.2 Recorder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-1-Recorder-record-net-record-partType"><span class="toc-text">4.2.1 Recorder.record({net, record, partType})</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-2-Recorder-stop"><span class="toc-text">4.2.2 Recorder.stop()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-3-let-time-Recorder-getTime"><span class="toc-text">4.2.3 let time = Recorder.getTime()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-4-let-record-Recorder-on-eventname-callback"><span class="toc-text">4.2.4 let record = Recorder.on(eventname, callback)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-5-let-record-Recorder-off-eventname-callback"><span class="toc-text">4.2.5 let record = Recorder.off(eventname, callback)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-6-Recorder-isRecording-Boolean"><span class="toc-text">4.2.6 Recorder.isRecording():Boolean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-7-Recorder-isTesting-Boolean"><span class="toc-text">4.2.7 Recorder.isTesting():Boolean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-8-Recorder-isLoading-Boolean"><span class="toc-text">4.2.8 Recorder.isLoading():Boolean</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-NetWork"><span class="toc-text">5. NetWork</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-HttpClient"><span class="toc-text">5.1 HttpClient</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-1-Promise-HttpClient-post-url-type-params-then-callback-call-errFn"><span class="toc-text">5.1.1 Promise:HttpClient.post(url, {type, params}).then(callback).call(errFn)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-Logger"><span class="toc-text">6 Logger</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-Logger-error-…args"><span class="toc-text">6.1 Logger.error(…args)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-Logger-warn-…args"><span class="toc-text">6.2 Logger.warn(…args)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-Logger-info-…args"><span class="toc-text">6.3 Logger.info(…args)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-Logger-debug-…args"><span class="toc-text">6.4 Logger.debug(…args)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-EventBus"><span class="toc-text">7 EventBus</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-EventBus-postMessage-message"><span class="toc-text">7.1 EventBus.postMessage(message)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-EventBus-recieveMessage-params"><span class="toc-text">7.2 EventBus.recieveMessage(params)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-FlipBook"><span class="toc-text">8 FlipBook</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-let-bookInfo-Object-FlipBook-getBookInfo"><span class="toc-text">8.1 let bookInfo:Object = FlipBook.getBookInfo()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-let-catalogNode-Array-FlipBook-getCatalogNode"><span class="toc-text">8.2 let catalogNode:Array = FlipBook.getCatalogNode()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-FlipBook-on-eventname-callback"><span class="toc-text">8.3 FlipBook.on(eventname, callback)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-4-FlipBook-off-eventname-callback"><span class="toc-text">8.4 FlipBook.off(eventname, callback)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-5-FlipBook-submitEleAttr-arr"><span class="toc-text">8.5 FlipBook.submitEleAttr(arr)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-6-let-data-FlipBook-getTasksUploadStatus-taskId-String"><span class="toc-text">8.6 let data = FlipBook.getTasksUploadStatus(taskId?:{String})</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-7-FlipBook-submitTask-data"><span class="toc-text">8.7 FlipBook.submitTask(data)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-8-FlipBook-deleteChapter-chapterId"><span class="toc-text">8.8 FlipBook.deleteChapter(chapterId)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-9-let-pageInfo-FlipBook-loadPageInfo"><span class="toc-text">8.9 let pageInfo = FlipBook.loadPageInfo()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-10-let-chapterInfo-FlipBook-loadChapterInfo"><span class="toc-text">8.10 let chapterInfo = FlipBook.loadChapterInfo()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-11-let-taskInfo-FlipBook-loadTaskInfo"><span class="toc-text">8.11 let taskInfo = FlipBook.loadTaskInfo()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-12-let-answerMark-FlipBook-getAnswerMark-taskId"><span class="toc-text">8.12 let answerMark = FlipBook.getAnswerMark(taskId)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-13-FlipBook-saveAnswerMark-taskId-answerMark"><span class="toc-text">8.13 FlipBook.saveAnswerMark(taskId, answerMark)</span></a></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: Finger Dancer</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://figgerdancer.github.io/passages/api标准化/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/js/"><i class="fa fa-tags"></i>js</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">博客推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">系列教程</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: ysulixiangyuan@gmail.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/前端知识收藏单/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/CSS-GRADIENT/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>
