@@ -6,7 +6,7 @@
   <meta name="author" content="Finger Dancer">
   
   
-  <title>分类 | Finger Dancer</title>
+  <title>浏览器从接收到一个url，到最后的页面展示，经历的过程 | Finger Dancer</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,7 +15,7 @@
   
 
   
-  <meta name="description" content="Finger Dancer&#39;s website">
+  <meta name="description" content="浏览器从接收到一个url，到最后的页面展示，经历的过程">
 
   
 
@@ -40,12 +40,12 @@
     welcome: {"enable":true,"interval":30},
     start_time: "2019-03-14",
     passwords: ["38c4136589f4b3400f30fa4fd9b9b9dab1efb5ab2852a27551f4b97845462337", ],
-    is_post: false,
+    is_post: true,
     lock: false,
     author: "Finger Dancer",
     share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
     mathjax: true,
-    page_type: "categories",
+    page_type: "",
     root: "/"
   };
 </script>
@@ -159,15 +159,85 @@
 <div id="site-process"></div>
     <main>
       
-  <div class="set">
-  <h3 style="text-align: left;">
-    <i class="fa fa-bookmark"></i>
-    共 2 个分类
-  </h3>
-  <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li></ul>
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-07-08
+    </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    浏览器从接收到一个url，到最后的页面展示，经历的过程
+  </h1>
+  
+  <article class="passage-article">
+    <p></p>
+<h1 id="1-在浏览器中输入URL"><a href="#1-在浏览器中输入URL" class="headerlink" title="1. 在浏览器中输入URL"></a>1. 在浏览器中输入URL</h1><h1 id="2-DNS域名解析，获得域名对应IP"><a href="#2-DNS域名解析，获得域名对应IP" class="headerlink" title="2. DNS域名解析，获得域名对应IP"></a>2. DNS域名解析，获得域名对应IP</h1><ul>
+<li>浏览器缓存</li>
+<li>操作系统缓存</li>
+<li>路由器缓存</li>
+<li>ISP缓存<h1 id="3-发起TCP请求"><a href="#3-发起TCP请求" class="headerlink" title="3. 发起TCP请求"></a>3. 发起TCP请求</h1><h1 id="4-发送HTTP请求"><a href="#4-发送HTTP请求" class="headerlink" title="4. 发送HTTP请求"></a>4. 发送HTTP请求</h1><em>指定端口：HTTP协议80/8080;HTTPS协议443。请求包括：请求行、请求报头、请求正文</em><h1 id="5-服务器处理收到的请求"><a href="#5-服务器处理收到的请求" class="headerlink" title="5. 服务器处理收到的请求"></a>5. 服务器处理收到的请求</h1><h1 id="6-返回相应结果"><a href="#6-返回相应结果" class="headerlink" title="6. 返回相应结果"></a>6. 返回相应结果</h1><em>响应报文：状态码，响应报头，响应报文</em><br>状态码：</li>
+<li>1XX：指示信息，表示请求已接受，继续处理。</li>
+<li>2XX：成功，表示请求已被成功接收、理解、接受。</li>
+<li>200：请求成功</li>
+<li>204：无内容。服务器成功处理，但未返回内容。在未更新网页的情况下，可确保浏览器继续显示当前文档</li>
+<li>3XX：重定向，要完成请求必须进行更进一步的操作。</li>
+<li>301：资源（网页等）被永久转移到其它URL</li>
+<li>302：临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI</li>
+<li>304：未修改。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源</li>
+<li>4XX：客户端错误，请求有语法错误或无法实现。</li>
+<li>400：客户端请求的语法错误，服务器无法理解</li>
+<li>401：请求要求用户的身份认证</li>
+<li>404：请求的资源（网页等）不存在</li>
+<li>5XX：服务器端错误，服务器未能实现合法的请求。</li>
+<li>500：内部服务器错误<br>常见状态码有：200，204，301，302，304，400，401，404，500<h1 id="7-关闭TCP"><a href="#7-关闭TCP" class="headerlink" title="7. 关闭TCP"></a>7. 关闭TCP</h1><h1 id="8-解析渲染"><a href="#8-解析渲染" class="headerlink" title="8. 解析渲染"></a>8. 解析渲染</h1></li>
+<li>解析HTML文件构建DOM树</li>
+<li>解析CSS文件构建渲染树</li>
+<li>JS解析</li>
+</ul>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-在浏览器中输入URL"><span class="toc-text">1. 在浏览器中输入URL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-DNS域名解析，获得域名对应IP"><span class="toc-text">2. DNS域名解析，获得域名对应IP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-发起TCP请求"><span class="toc-text">3. 发起TCP请求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-发送HTTP请求"><span class="toc-text">4. 发送HTTP请求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-服务器处理收到的请求"><span class="toc-text">5. 服务器处理收到的请求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-返回相应结果"><span class="toc-text">6. 返回相应结果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-关闭TCP"><span class="toc-text">7. 关闭TCP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-解析渲染"><span class="toc-text">8. 解析渲染</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: Finger Dancer</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://figgerdancer.github.io/passages/2019-7-8-浏览器从接收到一个url，到最后的页面展示，经历的过程/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
 </div>
 
     </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
     
     <div class="site-footer-wrapper">
   <footer class="site-footer">
@@ -255,19 +325,19 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="javascript:void(0);" data-enable="false">
+    <a href="/passages/2019-7-8-手写jsonp/" data-enable="true">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="javascript:void(0);" data-enable="false">
+    <a href="/passages/2019-7-8-前端安全性问题/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
   <div class="bottom-bar-right">
-    <a href="javascript:void(0);" data-enable="false" id="site-toc-show-btn">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
       <i class="fa fa-bars"></i>
     </a>
     
-      <a href="javascript:void(0);" data-enable="false">
+      <a href="#site-comment" data-enable="true">
         <i class="fa fa-commenting"></i>
       </a>
     

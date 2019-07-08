@@ -6,16 +6,16 @@
   <meta name="author" content="Finger Dancer">
   
   
-  <title>分类 | Finger Dancer</title>
+  <title>Cookie操作 | Finger Dancer</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Hexo, Theme-AD">
+    <meta name="keywords" content="前端,js,">
   
 
   
-  <meta name="description" content="Finger Dancer&#39;s website">
+  <meta name="description" content="Cookie 的操作">
 
   
 
@@ -40,12 +40,12 @@
     welcome: {"enable":true,"interval":30},
     start_time: "2019-03-14",
     passwords: ["38c4136589f4b3400f30fa4fd9b9b9dab1efb5ab2852a27551f4b97845462337", ],
-    is_post: false,
+    is_post: true,
     lock: false,
     author: "Finger Dancer",
     share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
     mathjax: true,
-    page_type: "categories",
+    page_type: "",
     root: "/"
   };
 </script>
@@ -159,15 +159,72 @@
 <div id="site-process"></div>
     <main>
       
-  <div class="set">
-  <h3 style="text-align: left;">
-    <i class="fa fa-bookmark"></i>
-    共 2 个分类
-  </h3>
-  <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li></ul>
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-07-08
+    </span>
+    
+      <span>
+        | <a href="/categories/前端/"><i class="fa fa-bookmark"></i>前端</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Cookie操作
+  </h1>
+  
+  <article class="passage-article">
+    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建cookie</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setCookie</span>(<span class="params">name, value, expires, path, domain, secure</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> cookieText = <span class="built_in">encodeURIComponent</span>(name) + <span class="string">"="</span> + <span class="built_in">encodeURIComponent</span>(value);</span><br><span class="line">  <span class="keyword">if</span> (expires <span class="keyword">instanceof</span> <span class="built_in">Date</span>) &#123;</span><br><span class="line">    cookieText += <span class="string">"; expires="</span> + expires;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (path) &#123;</span><br><span class="line">    cookieText += <span class="string">"; path="</span> + path;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (domain) &#123;</span><br><span class="line">    cookieText += <span class="string">"; domain="</span> + domain;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (secure) &#123;</span><br><span class="line">    cookieText += <span class="string">"; secure"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">document</span>.cookie = cookieText;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 获取cookie</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCookie</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> cookieName = <span class="built_in">encodeURIComponent</span>(name) + <span class="string">"="</span>;</span><br><span class="line">  <span class="keyword">var</span> cookieStart = <span class="built_in">document</span>.cookie.indexOf(cookieName);</span><br><span class="line">  <span class="keyword">var</span> cookieValue = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (cookieStart &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> cookieEnd = <span class="built_in">document</span>.cookie.indexOf(<span class="string">";"</span>, cookieStart);</span><br><span class="line">    <span class="keyword">if</span> (cookieEnd == <span class="number">-1</span>) &#123;</span><br><span class="line">      cookieEnd = <span class="built_in">document</span>.cookie.length;</span><br><span class="line">    &#125;</span><br><span class="line">    cookieValue = <span class="built_in">decodeURIComponent</span>(</span><br><span class="line">      <span class="built_in">document</span>.cookie.substring(cookieStart + cookieName.length, cookieEnd)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> cookieValue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 删除cookie</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unsetCookie</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">document</span>.cookie = name + <span class="string">"= ; expires="</span> + <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: Finger Dancer</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://figgerdancer.github.io/passages/2019-7-8-Cookie/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/js/"><i class="fa fa-tags"></i>js</a>
+    
+    </div>
+  
 </div>
 
     </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
     
     <div class="site-footer-wrapper">
   <footer class="site-footer">
@@ -255,19 +312,19 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="javascript:void(0);" data-enable="false">
+    <a href="/passages/2019-7-8-前端安全性问题/" data-enable="true">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="javascript:void(0);" data-enable="false">
+    <a href="/passages/2019-7-8-前端题练习/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
   <div class="bottom-bar-right">
-    <a href="javascript:void(0);" data-enable="false" id="site-toc-show-btn">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
       <i class="fa fa-bars"></i>
     </a>
     
-      <a href="javascript:void(0);" data-enable="false">
+      <a href="#site-comment" data-enable="true">
         <i class="fa fa-commenting"></i>
       </a>
     
