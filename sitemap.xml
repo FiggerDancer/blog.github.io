@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://figgerdancer.github.io/passages/2019-7-8-%E5%89%8D%E7%AB%AF%E9%A2%98%E7%BB%83%E4%B9%A0/</loc>
+    
+    <lastmod>2019-07-09T03:53:03.367Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://figgerdancer.github.io/passages/2019-7-8-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98/</loc>
+    
+    <lastmod>2019-07-09T03:37:22.803Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://figgerdancer.github.io/passages/2019-7-8-%E6%89%8B%E5%86%99jsonp/</loc>
     
     <lastmod>2019-07-08T09:03:09.794Z</lastmod>
@@ -19,20 +33,6 @@
     <loc>https://figgerdancer.github.io/passages/2019-7-8-Cookie/</loc>
     
     <lastmod>2019-07-08T08:26:45.008Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://figgerdancer.github.io/passages/2019-7-8-%E5%89%8D%E7%AB%AF%E9%A2%98%E7%BB%83%E4%B9%A0/</loc>
-    
-    <lastmod>2019-07-08T08:26:31.773Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://figgerdancer.github.io/passages/2019-7-8-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98/</loc>
-    
-    <lastmod>2019-07-08T08:26:05.844Z</lastmod>
     
   </url>
   
@@ -75,13 +75,6 @@
     <loc>https://figgerdancer.github.io/passages/2019-3-18-webpack4-1/</loc>
     
     <lastmod>2019-04-11T03:49:41.893Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://figgerdancer.github.io/passages/api%E6%A0%87%E5%87%86%E5%8C%96/</loc>
-    
-    <lastmod>2019-04-11T03:49:38.298Z</lastmod>
     
   </url>
   

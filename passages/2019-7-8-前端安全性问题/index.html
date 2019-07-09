@@ -15,7 +15,7 @@
   
 
   
-  <meta name="description" content="前端安全性问题XSS 与 XSRF">
+  <meta name="description" content="前端安全性问题XSS 与 CSRF">
 
   
 
@@ -177,13 +177,15 @@
   
   <article class="passage-article">
     <p></p>
-<h1 id="1-XSS-跨站请求攻击"><a href="#1-XSS-跨站请求攻击" class="headerlink" title="1.  XSS 跨站请求攻击"></a>1.  XSS 跨站请求攻击</h1><ul>
+<h1 id="1-XSS-跨站请求攻击"><a href="#1-XSS-跨站请求攻击" class="headerlink" title="1.  XSS 跨站请求攻击"></a>1.  XSS 跨站请求攻击</h1><p>跨站脚本（Cross-site scripting，通常简称为XSS）是一种网站应用程序的安全漏洞攻击，是代码注入的一种。它允许恶意用户将代码注入到网页上，其他用户在观看网页时就会受到影响。这类攻击通常包含了HTML以及用户端脚本语言。</p>
+<ul>
 <li>在博客里可以写文章，同时偷偷插入一段<code>&lt;script\&gt;</code>代码。</li>
 <li>发布博客，有人查看博客内容</li>
 <li>打开博客时，就会执行插入的js攻击代码</li>
 <li>在攻击代码中，获取cookie(其中可能包含敏感信息)，发送到攻击者的服务+ 器，攻击者就得到了博客阅读者的信息。</li>
 </ul>
-<h1 id="2-XSRF-跨站请求伪造"><a href="#2-XSRF-跨站请求伪造" class="headerlink" title="2.  XSRF 跨站请求伪造"></a>2.  XSRF 跨站请求伪造</h1><ul>
+<h1 id="2-CSRF-跨站请求伪造"><a href="#2-CSRF-跨站请求伪造" class="headerlink" title="2.  CSRF 跨站请求伪造"></a>2.  CSRF 跨站请求伪造</h1><p>跨站请求伪造（英语：Cross-site request forgery），也被称为 one-click attack 或者 session riding，通常缩写为 CSRF 或者 XSRF， 是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。</p>
+<ul>
 <li>你已经登陆了购物网站，正在浏览商品</li>
 <li>该网站的付费接口是xxx.com/pay?id=100，但是没有任何验证</li>
 <li>然后你收到一封邮件，隐藏着<code>&lt;img src=&quot;是xxx.com/pay?id=100&quot;\&gt;</code></li>
@@ -196,7 +198,7 @@
     <span>目录</span>
   </div>
   <div class="table-content-main">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-XSS-跨站请求攻击"><span class="toc-text">1.  XSS 跨站请求攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-XSRF-跨站请求伪造"><span class="toc-text">2.  XSRF 跨站请求伪造</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-XSS-跨站请求攻击"><span class="toc-text">1.  XSS 跨站请求攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-CSRF-跨站请求伪造"><span class="toc-text">2.  CSRF 跨站请求伪造</span></a></li></ol>
   </div>
 </aside>
   
